@@ -10,6 +10,7 @@ Time spent: **** hours
 
 The following **required** functionality is completed:
 
+
 <!-- Make sure to check off completed functionality below -->
 - [ ] **The web app is connected to a PostgreSQL database**
   - [ ] **NOTE: Your GIF must include a view of your Railway database that shows the contents of the table used by your app**
