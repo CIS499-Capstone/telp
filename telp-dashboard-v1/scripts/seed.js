@@ -95,6 +95,8 @@ async function seedUsers(client) {
 
 async function seedIncidents(client) {
   try {
+    // Drop dependent constraints
+    await client.sql`ALTER TABLE IF EXISTS incidents DROP CONSTRAINT IF EXISTS incidents_userid_fkey;`;
     // Drop the "incidents" table if it exists
     await client.sql`DROP TABLE IF EXISTS incidents;`;
     // Create the "incidents" table if it doesn't exist
