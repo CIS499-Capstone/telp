@@ -51,7 +51,7 @@ export async function fetchCardData() {
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
     // how to initialize multiple queries in parallel with JS.
-    const teacherCountPromise = sql`SELECT COUNT(*) FROM users WHERE role = 'teacher`;
+    const teacherCountPromise = sql`SELECT COUNT(*) FROM users WHERE role = 'teacher'`;
     const incidentsCountPromise = sql`SELECT COUNT(*) FROM incidents`;
     const commentCountPromise = sql`SELECT COUNT(*) FROM incidents WHERE comment != ''`;
 
