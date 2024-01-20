@@ -50,8 +50,10 @@ const bcrypt = require('bcrypt');
 
 async function seedUsers(client) {
   try {
-    // Drop the "users" table if it exists
-    await client.sql`DROP TABLE IF EXISTS users;`;
+    // Drop the "users" table if it exists along with dependent objects
+    await client.sql`
+      DROP TABLE IF EXISTS users CASCADE;
+    `;
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS users (
