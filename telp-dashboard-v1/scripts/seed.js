@@ -96,7 +96,7 @@ async function seedIncidents(client) {
     // Create the "incidents" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS incidents (
-        incident_id SERIAL PRIMARY KEY,
+        incidentId SERIAL PRIMARY KEY,
         userID INT REFERENCES users(id),
         comment TEXT DEFAULT NULL,
         time TIMESTAMP
@@ -109,9 +109,9 @@ async function seedIncidents(client) {
     const insertedIncidents = await Promise.all(
       incidents.map(
         (incident) => client.sql`
-        INSERT INTO incidents (incident_id, userID, comment, time)
-        VALUES (${incident.incident_id}, ${incident.userID}, ${incident.comment}, ${incident.time})
-        ON CONFLICT (incident_id) DO NOTHING;
+        INSERT INTO incidents (incidentId, userID, comment, time)
+        VALUES (${incident.incidentId}, ${incident.userID}, ${incident.comment}, ${incident.time})
+        ON CONFLICT (incidentId) DO NOTHING;
       `,
       ),
     );
