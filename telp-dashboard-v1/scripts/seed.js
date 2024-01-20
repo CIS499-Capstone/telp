@@ -6,6 +6,47 @@ const {
 
 const bcrypt = require('bcrypt');
 
+// async function seedUsers(client) {
+//   try {
+//     // Create the "users" table if it doesn't exist
+//     const createTable = await client.sql`
+//       CREATE TABLE IF NOT EXISTS users (
+//         id SERIAL PRIMARY KEY,
+//         role VARCHAR(50) CHECK (role IN ('teacher', 'admin')), -- Ensuring role is either 'teacher' or 'admin'
+//         name VARCHAR(255) NOT NULL,
+//         email TEXT NOT NULL UNIQUE,
+//         password TEXT NOT NULL,
+//         assigned_room VARCHAR(100),
+//         num_incidents INT DEFAULT 0,
+//         image_url TEXT
+//       );
+//     `;
+
+//     console.log(`Created "users" table`);
+
+//     // Insert data into the "users" table
+//     const insertedUsers = await Promise.all(
+//       users.map(async (user) => {
+//         const hashedPassword = await bcrypt.hash(user.password, 10);
+//         return client.query`
+//           INSERT INTO users (id, role, name, email, password, assigned_room, num_incidents, image_url)
+//           VALUES (${user.id}, ${user.role}, ${user.name}, ${user.email}, ${hashedPassword}, ${user.assigned_room}, ${user.num_incidents}, ${user.image_url})
+//           ON CONFLICT (id) DO NOTHING
+//           RETURNING *;`;
+//       }),
+//     );
+
+//     console.log(`Seeded ${insertedUsers.length} users`);
+
+//     return {
+//       createTable,
+//       users: insertedUsers,
+//     };
+//   } catch (error) {
+//     console.error('Error seeding users:', error);
+//     throw error;
+//   }
+// }
 
 async function seedUsers(client) {
   try {
@@ -13,7 +54,7 @@ async function seedUsers(client) {
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        role VARCHAR(50) CHECK (role IN ('teacher', 'admin')), -- Ensuring role is either 'teacher' or 'admin'
+        role VARCHAR(50) CHECK (role IN ('teacher', 'admin')),
         name VARCHAR(255) NOT NULL,
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
@@ -29,11 +70,10 @@ async function seedUsers(client) {
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
-        return client.query`
-          INSERT INTO users (id, role, name, email, password, assigned_room, num_incidents, image_url)
-          VALUES (${user.id}, ${user.role}, ${user.name}, ${user.email}, ${hashedPassword}, ${user.assigned_room}, ${user.num_incidents}, ${user.image_url})
-          ON CONFLICT (id) DO NOTHING
-          RETURNING *;`;
+        return client.query(
+          'INSERT INTO users (id, role, name, email, password, assigned_room, num_incidents, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING RETURNING *',
+          [user.id, user.role, user.name, user.email, hashedPassword, user.assigned_room, user.num_incidents, user.image_url]
+        );
       }),
     );
 
@@ -48,6 +88,7 @@ async function seedUsers(client) {
     throw error;
   }
 }
+
 
 
 async function seedIncidents(client) {
