@@ -20,6 +20,7 @@ export type Incidents ={
   time: string;  
 }
 
+
 /* TODO: Load Schedule DataStructure in ESP32
 export type Schedule = {
   scheduleId: number;

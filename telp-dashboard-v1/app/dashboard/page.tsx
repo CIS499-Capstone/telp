@@ -1,10 +1,11 @@
 import { Card } from '@/app/ui/dashboard/cards';
+//import LatestComments from '../ui/dashboard/latest-comments';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchCardData } from '@/app/lib/data';
-//import { Suspense } from 'react';
+import { fetchCardData, fetchCommentsData } from '@/app/lib/data';
+import { Suspense } from 'react';
 // import {
 //   RevenueChartSkeleton,
-//   LatestInvoicesSkeleton,
+//   LatestCommentsSkeleton,
 // } from '@/app/ui/skeletons';
 
 export default async function Page() {
@@ -50,6 +51,14 @@ export default async function Page() {
             type="pending"
           />
         }
+      </div>
+      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+        {/*<Suspense fallback={<RevenueChartSkeleton />}>
+          <RevenueChart />
+      </Suspense>*/}
+        <Suspense fallback={<LatestCommentsSkeleton />}>
+          <LatestComments />
+        </Suspense>
       </div>
     </main>
   );

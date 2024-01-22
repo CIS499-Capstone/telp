@@ -77,6 +77,41 @@ export async function fetchCardData() {
     throw new Error('Failed to fetch card data.');
   }
 }
+
+export async function fetchCommentsData() {
+  try {
+    const query = sql`
+      SELECT
+        u.image_url,
+        u.name,
+        u.email,
+        i.comment
+      FROM
+        users u
+      INNER JOIN
+        incidents i ON u.id = i.userId
+      WHERE
+        u.role = 'teacher' AND
+        i.comment IS NOT NULL AND
+        i.comment != '';
+    `;
+
+    const result = await query;
+
+    const commentData = result.rows.map((row) => ({
+      image_url: row.image_url,
+      name: row.name,
+      email: row.email,
+      comment: row.comment,
+    }));
+
+    return commentData;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch comment data.');
+  }
+}
+
 // Might come in handy
 // export async function getUser(email: string) {
 //   try {
