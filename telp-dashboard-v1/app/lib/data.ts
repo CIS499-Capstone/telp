@@ -1,50 +1,9 @@
-import { sql } from '@vercel/postgres';
+import { sql, QueryResult } from '@vercel/postgres';
 import {
   Users,
   Incidents,
+  CommentData
 } from './definitions';
-
-/*export async function fetchRevenue() {
-  // Add noStore() here to prevent the response from being cached.
-  // This is equivalent to in fetch(..., {cache: 'no-store'}).
-
-  try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
-
-    // console.log('Data fetch completed after 3 seconds.');
-
-    return data.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
-  }
-}*/
-
-/*export async function fetchLatestInvoices() {
-  try {
-    const data = await sql<LatestInvoiceRaw>`
-      SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
-      FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
-      ORDER BY invoices.date DESC
-      LIMIT 5`;
-
-    const latestInvoices = data.rows.map((invoice) => ({
-      ...invoice,
-      amount: formatCurrency(invoice.amount),
-    }));
-    return latestInvoices;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch the latest invoices.');
-  }
-}*/
 
 export async function fetchCardData() {
   try {
@@ -77,6 +36,47 @@ export async function fetchCardData() {
     throw new Error('Failed to fetch card data.');
   }
 }
+
+
+export async function fetchCommentsData() {
+  try {
+    const query = sql`
+      SELECT
+        u.image_url,
+        u.name,
+        u.email,
+        i.comment
+      FROM
+        users u
+      INNER JOIN
+        incidents i ON u.id = i.userId
+      WHERE
+        u.role = 'teacher' AND
+        i.comment IS NOT NULL AND
+        i.comment != '';
+    `;
+
+    const result = await query;
+    
+    console.log('Query Result:', result);
+
+    const commentData = result.rows.map((row) => ({
+      image_url: row.image_url as string,
+      name: row.name as string,
+      email: row.email as string,
+      comment: row.comment as string,
+    }));
+
+    return commentData;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch comment data.');
+  }
+}
+
+
+
+
 // Might come in handy
 // export async function getUser(email: string) {
 //   try {

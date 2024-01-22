@@ -19,6 +19,14 @@ export type Incidents ={
   comment: string;
   time: string;  
 }
+// definitions.ts
+export interface CommentData {
+  image_url: string;
+  name: string;
+  email: string;
+  comment: string;
+}
+
 
 /* TODO: Load Schedule DataStructure in ESP32
 export type Schedule = {
