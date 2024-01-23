@@ -52,13 +52,10 @@ export async function fetchCommentsData() {
         incidents i ON u.id = i.userId
       WHERE
         u.role = 'teacher' AND
-        i.comment IS NOT NULL AND
         i.comment != '';
     `;
 
     const result = await query;
-    
-    console.log('Query Result:', result);
 
     const commentData = result.rows.map((row) => ({
       image_url: row.image_url as string,
@@ -73,17 +70,3 @@ export async function fetchCommentsData() {
     throw new Error('Failed to fetch comment data.');
   }
 }
-
-
-
-
-// Might come in handy
-// export async function getUser(email: string) {
-//   try {
-//     const user = await sql`SELECT * FROM users WHERE email=${email}`;
-//     return user.rows[0] as Users;
-//   } catch (error) {
-//     console.error('Failed to fetch user:', error);
-//     throw new Error('Failed to fetch user.');
-//   }
-// }

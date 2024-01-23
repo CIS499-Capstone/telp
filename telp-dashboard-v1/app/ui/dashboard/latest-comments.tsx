@@ -1,4 +1,3 @@
-// latest-comments.tsx
 import React from 'react';
 import { lusitana } from '@/app/ui/fonts';
 import Image from 'next/image';
@@ -39,7 +38,8 @@ export function LatestComments({
             </div>
 
             <p
-              className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
+              className={`${lusitana.className} font-small md:text-base, ml-auto truncate text-sm
+              text-gray-500`} // right-align the comment
             >
               {comment}
             </p>

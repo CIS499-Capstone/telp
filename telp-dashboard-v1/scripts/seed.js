@@ -118,7 +118,7 @@ async function seedIncidents(client) {
       incidents.map(
         (incident) => client.sql`
         INSERT INTO incidents (incidentId, userID, comment, time)
-        VALUES (${incident.incidentId}, ${incident.userID}, ${incident.comment}, ${incident.time})
+        VALUES (${incident.incidentId}, ${incident.userId}, ${incident.comment}, ${incident.time})
         ON CONFLICT (incidentId) DO NOTHING;
       `,
       ),
