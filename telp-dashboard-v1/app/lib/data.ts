@@ -1,9 +1,4 @@
-import { sql, QueryResult } from '@vercel/postgres';
-import {
-  Users,
-  Incidents,
-  CommentData
-} from './definitions';
+import { sql} from '@vercel/postgres';
 
 export async function fetchCardData() {
   try {
