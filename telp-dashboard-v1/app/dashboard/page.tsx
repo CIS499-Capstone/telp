@@ -1,5 +1,5 @@
 import { Card } from '@/app/ui/dashboard/cards';
-import { LatestComments } from '../ui/dashboard/latest-comments';
+import LatestComments from '../ui/dashboard/latest-comments';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchCardData, fetchCommentsData } from '@/app/lib/data';
 import { Suspense } from 'react';
@@ -16,13 +16,14 @@ export default async function Page() {
     numberOfPendingComments,
   } = await fetchCardData();
 
-  const { image_url, name, email, comment } = (
+  const { image_url, name, email, comment, time } = (
     await fetchCommentsData()
   )[0] || {
     image_url: '',
     name: '',
     email: '',
     comment: '',
+    time: '',
   };
 
   // Wait for promises to resolve
@@ -30,6 +31,7 @@ export default async function Page() {
   const resolvedName = await name;
   const resolvedEmail = await email;
   const resolvedComment = await comment;
+  const resolvedTime = await time;
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
@@ -72,12 +74,7 @@ export default async function Page() {
           <RevenueChart />
       </Suspense>*/}
         <Suspense fallback={<LatestCommentsSkeleton />}>
-          <LatestComments
-            image_url={resolvedImageURL}
-            name={resolvedName}
-            email={resolvedEmail}
-            comment={resolvedComment}
-          />
+          <LatestComments />
         </Suspense>
       </div>
     </main>
