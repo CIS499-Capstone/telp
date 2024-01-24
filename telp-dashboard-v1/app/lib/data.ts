@@ -1,9 +1,4 @@
-import { sql, QueryResult } from '@vercel/postgres';
-import {
-  Users,
-  Incidents,
-  CommentData
-} from './definitions';
+import { sql} from '@vercel/postgres';
 
 export async function fetchCardData() {
   try {
@@ -45,14 +40,17 @@ export async function fetchCommentsData() {
         u.image_url,
         u.name,
         u.email,
-        i.comment
+        i.comment,
+        i.time
       FROM
         users u
       INNER JOIN
         incidents i ON u.id = i.userId
       WHERE
         u.role = 'teacher' AND
-        i.comment != '';
+        i.comment != ''
+      ORDER BY
+        i.time DESC;
     `;
 
     const result = await query;
@@ -62,6 +60,7 @@ export async function fetchCommentsData() {
       name: row.name as string,
       email: row.email as string,
       comment: row.comment as string,
+      time: row.time as string,
     }));
 
     return commentData;
