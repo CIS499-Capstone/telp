@@ -69,3 +69,34 @@ export async function fetchCommentsData() {
     throw new Error('Failed to fetch comment data.');
   }
 }
+
+
+export async function fetchTeacherData() {
+  try {
+    const query = sql`
+      SELECT
+        u.id,
+        u.image_url,
+        u.name,
+        u.email
+      FROM
+        users u
+      WHERE
+        u.role = 'teacher'
+    `;
+
+    const result = await query;
+
+    const teachers = result.rows.map((row) => ({
+      id: row.id as Number,
+      image_url: row.image_url as string,
+      name: row.name as string,
+      email: row.email as string,
+    }));
+
+    return teachers;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch comment data.');
+  }
+}
