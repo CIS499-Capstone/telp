@@ -8,7 +8,7 @@ import { fetchCommentsData } from '@/app/lib/data';
 // TODO: remove props. call fetchCommentData in here, use a map function to render all latest comments.
 export default async function LatestComments() {
   const lastComments = await fetchCommentsData();
-  console.log('lastComments: ', lastComments);
+  //console.log('lastComments: ', lastComments);
   return (
     <div className="flex w-full flex-col md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
