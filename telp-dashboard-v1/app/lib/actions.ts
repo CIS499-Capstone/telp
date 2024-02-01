@@ -17,7 +17,7 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
-  console.log('Authenticating in actions.ts');    // TEST
+  // console.log('Authenticating in actions.ts');    // TEST
   try {
     await signIn('credentials', formData);
   } catch (error) {
