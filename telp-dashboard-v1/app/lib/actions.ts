@@ -3,21 +3,11 @@
 import { redirect } from 'next/navigation';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
- 
-export type State = {
-  errors?: {
-    customerId?: string[];
-    amount?: string[];
-    status?: string[];
-  };
-  message?: string | null;
-};
 
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
-  // console.log('Authenticating in actions.ts');    // TEST
   try {
     await signIn('credentials', formData);
   } catch (error) {
