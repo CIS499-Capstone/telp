@@ -7,10 +7,12 @@ export type Users = {
   role: 'teacher' | 'admin';
   name: string;
   email: string;
-  password: string;
-  assigned_room: string;
-  num_incidents: number;
   image_url: string;
+};
+
+export type AuthInfo = {
+  email: string;
+  password: string;
 };
 
 // export type Users = {
