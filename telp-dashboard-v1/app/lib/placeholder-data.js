@@ -7,8 +7,6 @@ const users = [
     role: 'admin',
     name: 'Delba de Oliveira',
     email: 'delba.oliveira@school.edu',
-    //password: 'safestphrase',
-    //assigned_room: 'LL1',
     image_url: '/users/delba-de-oliveira.png',
   },
   {
@@ -16,8 +14,6 @@ const users = [
     role: 'teacher',
     name: 'Lee Robinson',
     email: 'lee.robinson@school.edu',
-    //password: 'safestphrase2',
-    //assigned_room: 'LL2',
     image_url: '/users/lee-robinson.png',
   },
   {
@@ -25,8 +21,6 @@ const users = [
     role: 'teacher',
     name: 'Hector Simpson',
     email: 'hector.simpson@school.edu',
-    //password: 'safestphrase3',
-    //assigned_room: 'LL3',
     image_url: '/users/hector-simpson.png',
   },
   {
@@ -34,8 +28,6 @@ const users = [
     role: 'teacher',
     name: 'Steven Tey',
     email: 'steven.tey@school.edu',
-    //password: 'safestphrase4',
-    //assigned_room: 'LL4',
     image_url: '/users/steven-tey.png',
   },
   {
@@ -43,8 +35,6 @@ const users = [
     role: 'teacher',
     name: 'Steph Dietz',
     email: 'steph.dietz@school.edu',
-    //password: 'safestphrase5',
-    //assigned_room: 'LL5',
     image_url: '/users/steph-dietz.png',
   },
   {
@@ -52,8 +42,6 @@ const users = [
     role: 'teacher',
     name: 'Michael Novotny',
     email: 'michael.novotny@school.edu',
-    //password: 'safestphrase6',
-    //assigned_room: 'LL6',
     image_url: '/users/michael-novotny.png',
   },/*
   {
