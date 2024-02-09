@@ -62,6 +62,7 @@ export async function fetchCommentsData() {
       comment: row.comment as string,
       time: row.time as Date,
     }));
+    console.log("Comment Data: ",commentData);
 
     return commentData;
   } catch (error) {
