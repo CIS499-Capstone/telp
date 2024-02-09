@@ -7,9 +7,9 @@ export type Users = {
   role: 'teacher' | 'admin';
   name: string;
   email: string;
-  password: string;
-  assigned_room: string;
-  num_incidents: number;
+  //password: string;
+  //assigned_room: string;
+  //num_incidents: number;
   image_url: string;
 };
 
@@ -17,7 +17,9 @@ export type Incidents ={
   incidentId: number;
   userId: number;
   comment: string;
-  time: string;  
+  time: string; 
+  studentId: number;
+  //studentName: string; 
 }
 // definitions.ts
 // export interface CommentData {

@@ -60,7 +60,7 @@ export async function fetchCommentsData() {
       name: row.name as string,
       email: row.email as string,
       comment: row.comment as string,
-      time: row.time as string,
+      time: row.time as Date,
     }));
 
     return commentData;
