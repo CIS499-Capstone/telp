@@ -3,14 +3,16 @@
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 export type Users = {
-  id: number;
+  id: string;
   role: 'teacher' | 'admin';
   name: string;
   email: string;
-  //password: string;
-  //assigned_room: string;
-  //num_incidents: number;
   image_url: string;
+};
+
+export type AuthInfo = {
+  email: string;
+  password: string;
 };
 
 export type Incidents ={
