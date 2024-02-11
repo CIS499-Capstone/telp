@@ -14,6 +14,7 @@ export async function fetchCardData() {
       incidentsCountPromise,
       commentCountPromise
     ]);
+    console.log("Data on Cards: ",data);
 
     const numberOfTeachers = Number(data[0].rows[0].count ?? '0');
     const numberOfIncidents = Number(data[1].rows[0].count ?? '0');
