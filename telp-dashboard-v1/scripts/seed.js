@@ -28,7 +28,6 @@ async function seedUsers(client) {
     // Insert data into the "users" table
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
-        //const hashedPassword = await bcrypt.hash(user.password, 10);
         return client.query(
           'INSERT INTO users (id, role, name, email, image_url) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING RETURNING *',
           [user.id, user.role, user.name, user.email, user.image_url]
