@@ -43,47 +43,7 @@ const users = [
     name: 'Michael Novotny',
     email: 'michael.novotny@school.edu',
     image_url: '/users/michael-novotny.png',
-  },/*
-  {
-    id: 1006,
-    role: 'teacher',
-    name: 'Evil Rabbit',
-    email: 'evil.rabbit@school.edu',
-    password: 'safestphrase7',
-    //assigned_room: 'LL7',
-    num_incidents: 1,
-    image_url: '/users/evil-rabbit.png',
   },
-  {
-    id: 1007,
-    role: 'teacher',
-    name: 'Emil Kowalski',
-    email: 'emil.kowalski@school.edu',
-    password: 'safestphrase8',
-    //assigned_room: 'LL8',
-    num_incidents: 2,
-    image_url: '/users/emil-kowalski.png',
-  },
-  {
-    id: 1008,
-    role: 'teacher',
-    name: 'Amy Burns',
-    email: 'amy.burns@school.edu',
-    password: 'safestphrase9',
-    //assigned_room: 'LL9',
-    num_incidents: 1,
-    image_url: '/users/amy-burns.png',
-  },
-  {
-    id: 1009,
-    role: 'teacher',
-    name: 'Balazs Orban',
-    email: 'balazs.orban@school.edu',
-    password: 'safestphrase10',
-    //assigned_room: 'LL10',
-    num_incidents: 0,
-    image_url: '/users/balazs-orban.png',
-  },*/
 ];
 
 const authinfo = [
@@ -94,8 +54,6 @@ const authinfo = [
   { email: 'steph.dietz@school.edu', password: 'safestphrase5' },
   { email: 'michael.novotny@school.edu', password: 'safestphrase6' },
 ];
-
-
 
 const incidents = [
   {

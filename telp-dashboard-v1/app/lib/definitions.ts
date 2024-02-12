@@ -21,27 +21,7 @@ export type Incidents ={
   comment: string;
   time: string; 
   studentId: number;
-  //studentName: string; 
 }
-// definitions.ts
-// export interface CommentData {
-//   image_url: string;
-//   name: string;
-//   email: string;
-//   comment: string;
-// }
-
-
-/* TODO: Load Schedule DataStructure in ESP32
-export type Schedule = {
-  scheduleId: number;
-  user_id: number;
-  day_of_week: string;
-  start_time: string;
-  end_time: string;
-  class_name: string;
-};
-*/
 
 
 // In TypeScript, this is called a string union type.
