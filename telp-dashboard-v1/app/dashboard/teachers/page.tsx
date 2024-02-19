@@ -1,27 +1,39 @@
-import { UserIcon } from '@heroicons/react/24/outline';
+// import Table from '@/app/ui/invoices/table';
+import { RegisterTeacher } from '@/app/ui/admin/buttons';
 import { lusitana } from '@/app/ui/fonts';
-import Image from 'next/image';
-import { fetchTeacherIncidents } from '@/app/lib/data';
-import { TeacherCards } from '@/app/ui/dashboard/teacher-cards';
-import TeacherDashboard from '@/app/ui/dashboard/teacher-dashboard';
+import { Suspense } from 'react';
+// import { fetchInvoicesPages } from '@/app/lib/data';
+import { Metadata } from 'next';
+ 
+export const metadata: Metadata = {
+  title: 'Invoices',
+};
 
-export default async function TeacherPage() {
-  //const teachers = await fetchTeacherIncidents();
-  //console.log('teachers: ', teachers);
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
+  
+  // const totalPages = await fetchInvoicesPages(query);
 
   return (
-    <div className="flex flex-wrap gap-4 p-4">
-      <div>
-        {/*teachers.map((teacher, i) => (
-          <div key={i} className="w-72 rounded-md bg-white p-4 shadow-md">
-            <TeacherCards
-              id={teacher.id}
-              image_url={teacher.image_url}
-              name={teacher.name}
-              email={teacher.email}
-            />
-          </div>
-        ))*/}
+    <div className="w-full">
+      <div className="flex w-full items-center justify-between">
+        <h1 className={`${lusitana.className} text-2xl`}>Admins Page</h1>
+      </div>
+      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+        <RegisterTeacher />
+      </div>
+       <Suspense key={query + currentPage}>
+        {/* <Table query={query} currentPage={currentPage} /> */}
+      </Suspense>
+      <div className="mt-5 flex w-full justify-center">
       </div>
     </div>
   );
