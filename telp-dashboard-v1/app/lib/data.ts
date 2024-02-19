@@ -1,4 +1,5 @@
 import { sql} from '@vercel/postgres';
+import { comment } from 'postcss';
 
 export async function fetchCardData() {
   try {
@@ -14,7 +15,7 @@ export async function fetchCardData() {
       incidentsCountPromise,
       commentCountPromise
     ]);
-    console.log("Data on Cards: ",data[0]);
+    //console.log("Data on Cards: ",data[0]);
 
     const numberOfTeachers = Number(data[0].rows[0].count ?? '0');
     const numberOfIncidents = Number(data[1].rows[0].count ?? '0');
@@ -63,7 +64,7 @@ export async function fetchCommentsData() {
       comment: row.comment as string,
       time: row.time as Date,
     }));
-    console.log("Comment Data: ",commentData);
+    //console.log("Comment Data: ",commentData);
 
     return commentData;
   } catch (error) {
@@ -72,31 +73,64 @@ export async function fetchCommentsData() {
   }
 }
 
-
-export async function fetchTeacherData() {
+//feed id into this function
+export async function fetchTeacherIncidents(id: number) {
   try {
     const query = sql`
       SELECT
-        u.id,
-        u.image_url,
-        u.name,
-        u.email
+        incidents.*,
+        students.name
       FROM
-        users u
+        incidents
+      INNER JOIN
+        students ON incidents.student_id = students.student_id
       WHERE
-        u.role = 'teacher'
+        incidents.userId = ${id}
+    `;
+
+    const result = await query;
+    console.log("Incident res: ",result.rows);
+
+    const incidents = result.rows.map((row) => ({
+      incidentid: row.id as number,
+      comment: row.comment as string,
+      time: row.time as string,
+      studentId: row.student_id as number,
+      name: row.name as string,
+    }));
+
+    return incidents;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch teacher incidents data.');
+  }
+}
+
+export async function fetchUserFromAuthInfo(authEmail :string){
+  //get user from email in authInfo
+  //from user we can check the role
+  
+  try {
+    const query = sql`
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        email = ${authEmail}
     `;
 
     const result = await query;
 
-    const teachers = result.rows.map((row) => ({
-      id: row.id as Number,
+    const teacher = result.rows.map((row) => ({
+      id: row.id as number,
+      role: row.role as string,
       image_url: row.image_url as string,
       name: row.name as string,
       email: row.email as string,
     }));
 
-    return teachers;
+    return teacher;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch comment data.');

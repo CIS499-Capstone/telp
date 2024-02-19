@@ -26,10 +26,13 @@ export default async function LatestComments() {
       </h2>
       <div className="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
         {latestComments.map((comment, i) => (
-          <div key={i} className="flex items-center">
+          <div
+            key={i}
+            className="flex items-center border-b border-gray-200 py-2"
+          >
             <Image
               src={comment.image_url}
-              alt={`${comment.name}'s profile picture`}
+              alt={`${comment.name}'s profile picture py-3 border-b border-gray-200`}
               className="mr-4 rounded-full"
               width={32}
               height={32}
