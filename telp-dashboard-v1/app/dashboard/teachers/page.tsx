@@ -1,5 +1,5 @@
 // import Table from '@/app/ui/invoices/table';
-import { RegisterTeacher } from '@/app/ui/admin/buttons';
+import { RegisterTeacher } from '@/app/ui/teachers/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 // import { fetchInvoicesPages } from '@/app/lib/data';
