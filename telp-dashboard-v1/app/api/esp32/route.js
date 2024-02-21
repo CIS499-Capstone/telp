@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-const accountSid = 'AC99cb6ddfd6009b2a7e3de2b43fc5a7ed';
-const authToken = '5b624cb19375ac820f58416a53fcabf2';
+const accountSid = '';
+const authToken = '';
 const client = require('twilio')(accountSid, authToken);
 // To handle a GET request to /api
 export async function GET(request) {
