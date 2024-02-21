@@ -1,6 +1,9 @@
 import type { NextAuthConfig } from 'next-auth';
  
 export const authConfig = {
+  session: {
+    maxAge: 18*60*60, // cookie is expiring 23hrs later
+  },
   pages: {
     signIn: '/login',
   },
