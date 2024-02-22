@@ -145,7 +145,7 @@ import {
   // InvoiceForm,
   TeachersTable,
   // LatestInvoiceRaw,
-  Users,
+  // Users,
   // Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
@@ -209,7 +209,7 @@ export async function fetchFilteredTeachers(
       FROM users
       JOIN devices ON users.id = devices.userID
       WHERE
-        users.role = 'teacher' AND 
+        users.role = 'teacher' AND
         users.name ILIKE ${`%${query}%`} OR
         users.email ILIKE ${`%${query}%`}
       ORDER BY users.id ASC
@@ -233,12 +233,14 @@ export async function fetchTeachersPages(query: string) {
     WHERE
       users.role = 'teacher'
   `;
-
-    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    console.log(count);
+    const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    console.log("Entries:", count.rowCount)
+    console.log("Total Pages:", totalPages)
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch total number of invoices.');
+    throw new Error('Failed to fetch total number of teachers.');
   }
 }
 
@@ -320,12 +322,12 @@ export async function fetchTeachersPages(query: string) {
 //   }
 // }
 
-export async function getUser(email: string) {
-  try {
-    const user = await sql`SELECT * FROM users WHERE email=${email}`;
-    return user.rows[0] as Users;
-  } catch (error) {
-    console.error('Failed to fetch user:', error);
-    throw new Error('Failed to fetch user.');
-  }
-}
+// export async function getUser(email: string) {
+//   try {
+//     const user = await sql`SELECT * FROM users WHERE email=${email}`;
+//     return user.rows[0] as Users;
+//   } catch (error) {
+//     console.error('Failed to fetch user:', error);
+//     throw new Error('Failed to fetch user.');
+//   }
+// }

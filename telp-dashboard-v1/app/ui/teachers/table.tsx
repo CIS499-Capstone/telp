@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/teachers/buttons';
-import UserRole from '@/app/ui/teachers/status';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredTeachers } from '@/app/lib/data';
 
 export default async function InvoicesTable({
@@ -20,7 +18,7 @@ export default async function InvoicesTable({
           <div className="md:hidden">
             {teachers?.map((teacher) => (
               <div
-                key={teacher.id}
+                key={teacher.userid}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
@@ -37,7 +35,7 @@ export default async function InvoicesTable({
                     </div>
                     <p className="text-sm text-gray-500">{teacher.email}</p>
                   </div>
-                  {/* <UserRole status={user.role} /> */}
+                  <p>{teacher.id}</p>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div className="flex justify-end gap-2">
@@ -52,6 +50,9 @@ export default async function InvoicesTable({
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                  Avatar
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
                   ID
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
@@ -71,7 +72,7 @@ export default async function InvoicesTable({
             <tbody className="bg-white">
               {teachers?.map((teacher) => (
                 <tr
-                  key={teacher.id}
+                  key={teacher.userid}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
@@ -83,8 +84,11 @@ export default async function InvoicesTable({
                         height={28}
                         alt={`${teacher.name}'s profile picture`}
                       />
-                      <p>{teacher.id}</p>
+                      {/* <p>{teacher.userid}</p> */}
                     </div>
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {teacher.userid}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {teacher.name}
@@ -92,13 +96,13 @@ export default async function InvoicesTable({
                   <td className="whitespace-nowrap px-3 py-3">
                     {teacher.email}
                   </td>
-                  {/* <td className="whitespace-nowrap px-3 py-3">
-                    <UserRole status={invoice.status} />
-                  </td> */}
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {teacher.id}
+                  </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      {/* <UpdateInvoice id={invoice.id} />
-                      <DeleteInvoice id={invoice.id} /> */}
+                      {/* <UpdateInvoice id={teacher.userid} />
+                      <DeleteInvoice id={teacher.userid} /> */}
                     </div>
                   </td>
                 </tr>
