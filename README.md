@@ -12,12 +12,12 @@ The following **required** functionality is completed:
 
 <!-- Make sure to check off completed functionality below -->
 
-- [ ] **The web app is connected to a PostgreSQL database**
+- [X] **The web app is connected to a PostgreSQL database**
   - [ ] **NOTE: Your GIF must include a view of your Vercel database that shows the contents of the table used by your app**
-- [ ] **Admins can log in and view statistics about incidents`**
-- [ ] **Admins should be authenticated into the app**
+- [X] **Admins can log in and view statistics about incidents`**
+- [X] **Admins should be authenticated into the app**
 - [ ] **Teachers can log in and add comments to their incidents**
-- [ ] **If a user submits a feature combo that is impossible, they should receive an appropriate error message and the item should not be saved to the database**
+- [ ] **If a user submits**
 
 The following **optional** features are implemented:
 
