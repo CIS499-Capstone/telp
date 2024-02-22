@@ -26,7 +26,7 @@ export default function Form() {
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Teacher ID */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
+          <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
             Enter ID
           </label>
           <div className="relative">
@@ -52,7 +52,7 @@ export default function Form() {
 
         {/* Teacher Name */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
+          <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
             Enter Name
           </label>
           <div className="relative">
@@ -78,7 +78,7 @@ export default function Form() {
 
         {/* Teacher Email */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
+          <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
             Enter Email 
           </label>
           <div className="relative">
@@ -107,14 +107,14 @@ export default function Form() {
 
         {/* Teacher Password */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
+          <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
             Enter Password
           </label>
           <div className="relative">
             <input
               id="password"
               name="password"
-              type="string"
+              type="password"
               placeholder="Enter Password here..."
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               aria-describedby="password-error"
@@ -133,7 +133,7 @@ export default function Form() {
         
         {/* Teacher Image */}
         <div className="mb-4">
-          <label htmlFor="customer" className="mb-2 block text-sm font-medium">
+          <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
             Enter Avatar
           </label>
           <div className="relative">
@@ -150,6 +150,32 @@ export default function Form() {
           <div id="image_url-error" aria-live="polite" aria-atomic="true">
             {state.errors?.image_url &&
               state.errors.image_url.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        {/* Device ID */}
+        <div className="mb-4">
+          <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
+            Enter Device Number
+          </label>
+          <div className="relative">
+            <input
+              id="deviceid"
+              name="deviceid"
+              type="number"
+              placeholder="Enter Device number here..."
+              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              aria-describedby="deviceid-error"
+            />
+            <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+          </div>
+          <div id="deviceid-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.deviceid &&
+              state.errors.deviceid.map((error: string) => (
                 <p className="mt-2 text-sm text-red-500" key={error}>
                   {error}
                 </p>

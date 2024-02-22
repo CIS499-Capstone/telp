@@ -28,8 +28,8 @@ export async function authenticate(
 }
 
 const FormSchema = z.object({
-  id: z.number({
-    invalid_type_error: "Please enter an ID.",
+  id: z.string({
+    invalid_type_error: "Please enter an ID number.",
   }),
   role: z.enum(['teacher', 'admin']),
   name: z.string({
@@ -44,6 +44,9 @@ const FormSchema = z.object({
   image_url: z.string({
     invalid_type_error: "Please enter an Image URL.",
   }),
+  deviceid: z.string({
+    invalid_type_error: "Please enter a Device number.",
+  }),
 });
  
 const RegisterTeacher = FormSchema;
@@ -57,6 +60,7 @@ export type State = {
     email?: string[];
     password?: string[];
     image_url?: string[];
+    deviceid?: string[];
   };
   message?: string | null;
 };
@@ -69,6 +73,7 @@ export async function registerTeacher(prevState: State, formData: FormData) {
     email: formData.get('email') + '@school.edu',
     password: await bcrypt.hash(formData.get('password'), 10),
     image_url: formData.get('image_url'),
+    deviceid: formData.get('deviceid'),
   });
  
   // If form validation fails, return errors early. Otherwise, continue.
@@ -80,7 +85,7 @@ export async function registerTeacher(prevState: State, formData: FormData) {
   }
   
   // Prepare data for insertion into the database
-  const { id, role, name, email, password, image_url } = validatedFields.data;
+  const { id, role, name, email, password, image_url, deviceid } = validatedFields.data;
  
   try {
     await sql`
@@ -89,7 +94,7 @@ export async function registerTeacher(prevState: State, formData: FormData) {
     `;
   } catch (error) {
     return {
-      message: 'Database Error: Failed to Create Teacher.',
+      message: 'Database Error: Failed to Create Teacher User Info.',
     };
   }
 
@@ -100,10 +105,22 @@ export async function registerTeacher(prevState: State, formData: FormData) {
     `;
   } catch (error) {
     return {
-      message: 'Database Error: Failed to Create Teacher AuthInfo.',
+      message: 'Database Error: Failed to Create Teacher Auth Info.',
     };
   }
  
+  console.log(deviceid, id)
+  try {
+    await sql`
+      INSERT INTO devices (id, userID)
+      VALUES (${deviceid}, ${id})
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Teacher Device Info.',
+    };
+  }
+
   // Revalidate the cache for the teachers page and redirect the user.
   revalidatePath('/dashboard/teachers');
   redirect('/dashboard/teachers');
