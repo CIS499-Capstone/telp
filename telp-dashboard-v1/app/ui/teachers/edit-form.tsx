@@ -2,7 +2,7 @@
 
 // import { 
 //   Users, 
-//   // InvoiceForm 
+//   InvoiceForm 
 // } from '@/app/lib/definitions';
 // import {
 //   CheckIcon,
@@ -21,7 +21,7 @@
 //   // invoice: InvoiceForm;
 //   customers: Users[];
 // }) {
-//   // const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+//   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
   
 
 //   return (

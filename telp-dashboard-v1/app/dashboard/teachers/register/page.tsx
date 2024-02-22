@@ -3,7 +3,7 @@ import Breadcrumbs from '@/app/ui/teachers/breadcrumbs';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
-  title: 'Create Invoice',
+  title: 'Register Teacher',
 };
 
 export default async function Page() {
