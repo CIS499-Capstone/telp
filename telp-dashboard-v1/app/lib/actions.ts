@@ -50,7 +50,7 @@ const FormSchema = z.object({
 });
  
 const RegisterTeacher = FormSchema;
-const UpdateInvoice = FormSchema;
+const UpdateTeacher = FormSchema.omit({role: true, id: true, image_url: true})
 
 export type State = {
   errors?: {
@@ -67,7 +67,7 @@ export type State = {
 
 export async function registerTeacher(prevState: State, formData: FormData) {
   const validatedFields = RegisterTeacher.safeParse({
-    id: formData.get('id'),
+    userid: formData.get('id'),
     role: 'teacher',
     name: formData.get('name'),
     email: formData.get('email') + '@school.edu',
@@ -126,35 +126,54 @@ export async function registerTeacher(prevState: State, formData: FormData) {
   redirect('/dashboard/teachers');
 }
 
-// export async function updateInvoice(id: string, formData: FormData) {
-//   const { customerId, amount, status } = UpdateInvoice.parse({
-//     customerId: formData.get('customerId'),
-//     amount: formData.get('amount'),
-//     status: formData.get('status'),
-//   });
+export async function updateUser(id: string, formData: FormData) {
+  const { name, email, password, deviceid } = UpdateTeacher.parse({
+    name: formData.get('name'),
+    email: formData.get('email') + '@school.edu',
+    password: await bcrypt.hash(formData.get('password'), 10),
+    deviceid: formData.get('deviceid'),
+  });
  
-//   const amountInCents = amount * 100;
- 
-//   try {
-//     await sql`
-//         UPDATE invoices
-//         SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-//         WHERE id = ${id}
-//       `;
-//   } catch (error) {
-//     return { message: 'Database Error: Failed to Update Invoice.' };
-//   }
- 
-//   revalidatePath('/dashboard/invoices');
-//   redirect('/dashboard/invoices');
-// }
-
-export async function deleteInvoice(id: string) {
   try {
-    await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath('/dashboard/invoices');
-    return { message: 'Deleted Invoice.' };
+    await sql`
+        UPDATE users
+        SET name = ${name}, email = ${email}
+        WHERE id = ${id}
+      `;
   } catch (error) {
-    return { message: 'Database Error: Failed to Delete Invoice.' };
+    return { message: 'Database Error: Failed to Update User Info.' };
+  }
+ 
+  // try {
+  //   await sql`
+  //       UPDATE authinfo
+  //       SET password = ${password}
+  //       WHERE email = ${email}
+  //     `;
+  // } catch (error) {
+  //   return { message: 'Database Error: Failed to Update Auth Info.' };
+  // }
+ 
+  // try {
+  //   await sql`
+  //       UPDATE devices
+  //       SET id = ${deviceid}
+  //       WHERE userid = ${id}
+  //     `;
+  // } catch (error) {
+  //   return { message: 'Database Error: Failed to Update Device Info.' };
+  // }
+ 
+  revalidatePath('/dashboard/teachers/'+{id}+'/details');
+  redirect('/dashboard/teachers/'+{id}+'/details');
+}
+
+export async function deleteTeacher(id: string) {
+  try {
+    await sql`DELETE FROM users WHERE id = ${id}`;
+    revalidatePath('/dashboard/teachers');
+    return { message: 'Deleted teacher.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete Teacher.' };
   }
 }

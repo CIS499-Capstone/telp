@@ -140,10 +140,11 @@ export async function fetchUserFromAuthInfo(authEmail :string){
 // ------------------------------------------------------------------------------------------------------------------
 
 import {
+  TeachersTable,
+  TeacherForm,
   // CustomerField,
   // CustomersTableType,
   // InvoiceForm,
-  TeachersTable,
   // LatestInvoiceRaw,
   // Users,
   // Revenue,
@@ -244,32 +245,28 @@ export async function fetchTeachersPages(query: string) {
   }
 }
 
-// export async function fetchInvoiceById(id: string) {
-//   noStore();
-//   try {
-//     const data = await sql<InvoiceForm>`
-//       SELECT
-//         invoices.id,
-//         invoices.customer_id,
-//         invoices.amount,
-//         invoices.status
-//       FROM invoices
-//       WHERE invoices.id = ${id};
-//     `;
+export async function fetchTeacherById(id: string) {
+  noStore();
+  try {
+    const data = await sql<TeacherForm>`
+      SELECT *
+      FROM users
+      JOIN authinfo ON users.email = authinfo.email
+      JOIN devices ON users.id = devices.userid
+      WHERE users.id = ${id};
+    `;
 
-//     const invoice = data.rows.map((invoice) => ({
-//       ...invoice,
-//       // Convert amount from cents to dollars
-//       amount: invoice.amount / 100,
-//     }));
+    const teacher = data.rows.map((teacher) => ({
+      ...teacher,
+    }));
 
-//     console.log(invoice); // Invoice is an empty array []
-//     return invoice[0];
-//   } catch (error) {
-//     console.error('Database Error:', error);
-//     throw new Error('Failed to fetch invoice.');
-//   }
-// }
+    console.log(teacher); // Invoice is an empty array []
+    return teacher[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoice.');
+  }
+}
 
 // export async function fetchCustomers() {
 //   try {

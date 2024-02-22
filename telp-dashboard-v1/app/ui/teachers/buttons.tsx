@@ -1,6 +1,17 @@
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { deleteInvoice } from '@/app/lib/actions';
+import { deleteTeacher } from '@/app/lib/actions';
+
+export function ViewTeacher({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/dashboard/teachers/${id}/details`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <EyeIcon className="w-5" />
+    </Link>
+  )
+}
 
 export function RegisterTeacher() {
   return (
@@ -14,10 +25,10 @@ export function RegisterTeacher() {
   );
 }
 
-export function UpdateInvoice({ id }: { id: string }) {
+export function UpdateTeacher({ id }: { id: string }) {
   return (
     <Link
-      href={`/dashboard/teachers/${id}/edit`}
+      href={`/dashboard/teachers/${id}/details/edit-teacher`}
       className="rounded-md border p-2 hover:bg-gray-100"
     >
       <PencilIcon className="w-5" />
@@ -26,7 +37,7 @@ export function UpdateInvoice({ id }: { id: string }) {
 }
 
 export function DeleteInvoice({ id }: { id: string }) {
-  const deleteInvoiceWithId = deleteInvoice.bind(null, id);
+  const deleteInvoiceWithId = deleteTeacher.bind(null, id);
 
   return (
     <form action={deleteInvoiceWithId}>

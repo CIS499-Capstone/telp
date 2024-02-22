@@ -112,9 +112,12 @@ export type CustomerField = {
   name: string;
 };
 
-// export type InvoiceForm = {
-//   id: string;
-//   customer_id: string;
-//   amount: number;
-//   status: 'pending' | 'paid';
-// };
+export type TeacherForm = {
+  userid: string;
+  role: 'teacher' | 'admin';
+  name: string;
+  email: string;
+  password: string;
+  image_url: string;
+  id: string;
+};
