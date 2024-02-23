@@ -50,7 +50,7 @@ const FormSchema = z.object({
 });
  
 const RegisterTeacher = FormSchema;
-const UpdateTeacher = FormSchema.omit({role: true, id: true, image_url: true})
+const UpdateTeacher = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true})
 
 export type State = {
   errors?: {
@@ -127,17 +127,16 @@ export async function registerTeacher(prevState: State, formData: FormData) {
 }
 
 export async function updateUser(id: string, formData: FormData) {
-  const { name, email, password, deviceid } = UpdateTeacher.parse({
+  console.log("ID: ", id);
+  const { name, deviceid } = UpdateTeacher.parse({
     name: formData.get('name'),
-    email: formData.get('email') + '@school.edu',
-    password: await bcrypt.hash(formData.get('password'), 10),
     deviceid: formData.get('deviceid'),
   });
  
   try {
     await sql`
         UPDATE users
-        SET name = ${name}, email = ${email}
+        SET name = ${name}
         WHERE id = ${id}
       `;
   } catch (error) {
@@ -154,18 +153,18 @@ export async function updateUser(id: string, formData: FormData) {
   //   return { message: 'Database Error: Failed to Update Auth Info.' };
   // }
  
-  // try {
-  //   await sql`
-  //       UPDATE devices
-  //       SET id = ${deviceid}
-  //       WHERE userid = ${id}
-  //     `;
-  // } catch (error) {
-  //   return { message: 'Database Error: Failed to Update Device Info.' };
-  // }
+  try {
+    await sql`
+        UPDATE devices
+        SET id = ${deviceid}
+        WHERE userid = ${id}
+      `;
+  } catch (error) {
+    return { message: 'Database Error: Failed to Update Device Info.' };
+  }
  
-  revalidatePath('/dashboard/teachers/'+{id}+'/details');
-  redirect('/dashboard/teachers/'+{id}+'/details');
+  revalidatePath('/dashboard/teachers');
+  redirect('/dashboard/teachers');
 }
 
 export async function deleteTeacher(id: string) {

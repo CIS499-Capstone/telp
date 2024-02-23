@@ -260,11 +260,11 @@ export async function fetchTeacherById(id: string) {
       ...teacher,
     }));
 
-    console.log(teacher); // Invoice is an empty array []
+    console.log(teacher); // Teacher is an empty array []
     return teacher[0];
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoice.');
+    throw new Error('Failed to fetch Teacher.');
   }
 }
 

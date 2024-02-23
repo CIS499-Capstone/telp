@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { UpdateTeacher, DeleteInvoice, ViewTeacher } from '@/app/ui/teachers/buttons';
+import { UpdateTeacher, DeleteTeacher, ViewTeacher } from '@/app/ui/teachers/buttons';
 import { fetchFilteredTeachers } from '@/app/lib/data';
 
 export default async function TeachersTable({

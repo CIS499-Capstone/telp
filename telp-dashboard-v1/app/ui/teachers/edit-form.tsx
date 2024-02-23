@@ -19,7 +19,7 @@ export default function EditInvoiceForm({
 }: {
   teacher: TeacherForm;
 }) {
-  const updateTeacherWithId = updateUser.bind(null, teacher.id);
+  const updateTeacherWithId = updateUser.bind(null, teacher.userid);
   
 
   return (
@@ -32,7 +32,7 @@ export default function EditInvoiceForm({
           </label>
           <div className="relative">
             <input
-              value={teacher.name}
+              defaultValue={teacher.name}
               id="name"
               name="name"
               type="text"
@@ -44,14 +44,14 @@ export default function EditInvoiceForm({
         </div>
 
         {/* Teacher Email */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
             Enter Email 
           </label>
           <div className="relative">
             <div className="mt-4 flex items-center justify-between gap-2">
               <input
-                value={teacher.email}
+                defaultValue={teacher.email.split('@')[0]}
                 id="email"
                 name="email"
                 type="text"
@@ -62,7 +62,7 @@ export default function EditInvoiceForm({
             </div>
             <EnvelopeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
           </div>
-        </div>
+        </div> */}
 
         {/* Teacher Password */}
         {/* <div className="mb-4">
@@ -71,7 +71,7 @@ export default function EditInvoiceForm({
           </label>
           <div className="relative">
             <input
-              value={teacher.password}
+              defaultValue={teacher.password}
               id="password"
               name="password"
               type="password"
@@ -89,7 +89,7 @@ export default function EditInvoiceForm({
           </label>
           <div className="relative">
             <input
-              value={teacher.image_url}
+              defaultValue={teacher.image_url}
               id="image_url"
               name="image_url"
               type="text"
@@ -107,7 +107,7 @@ export default function EditInvoiceForm({
           </label>
           <div className="relative">
             <input
-              value={teacher.id}
+              defaultValue={teacher.id}
               id="deviceid"
               name="deviceid"
               type="number"

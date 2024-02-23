@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { UpdateTeacher, DeleteInvoice } from './buttons';
+import { UpdateTeacher, DeleteTeacher } from './buttons';
 
 export default function ViewTeacherForm({
   teacher
@@ -100,7 +100,7 @@ export default function ViewTeacherForm({
         </div>
         <div className="mt-6 flex justify-end gap-4">
           <UpdateTeacher id={teacher.userid} />
-          <DeleteInvoice id={teacher.userid} />
+          <DeleteTeacher id={teacher.userid} /> 
         </div>
       </div>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">

@@ -36,11 +36,11 @@ export function UpdateTeacher({ id }: { id: string }) {
   );
 }
 
-export function DeleteInvoice({ id }: { id: string }) {
-  const deleteInvoiceWithId = deleteTeacher.bind(null, id);
+export function DeleteTeacher({ id }: { id: string }) {
+  const deleteTeacherWithId = deleteTeacher.bind(null, id);
 
   return (
-    <form action={deleteInvoiceWithId}>
+    <form action={deleteTeacherWithId}>
       <button className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
