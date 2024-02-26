@@ -8,7 +8,7 @@ import { lusitana } from '@/app/ui/fonts';
 import Image from 'next/image';
 import { fetchTeacherIncidents } from '@/app/lib/data';
 
-export default async function TeacherDashboard({ id }: { id: number }) {
+export default async function TeacherDashboard({ id }: { id: string }) {
   // should have a list of all incidents on the home nav-link
   const incidents = await fetchTeacherIncidents(id);
 
