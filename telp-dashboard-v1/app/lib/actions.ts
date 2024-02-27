@@ -262,3 +262,18 @@ export async function deleteTeacher(id: string) {
     return { message: 'Database Error: Failed to Delete Teacher.' };
   }
 }
+
+
+export async function deleteAdmin(id: string) {
+  console.log("Deleting ID: " + Number(id));
+  try {
+    await sql`DELETE FROM authinfo WHERE users.id = ${id} AND users.email = authInfo.email`;
+    await sql`DELETE FROM users AS user WHERE user.id = ${id}`;
+    revalidatePath('/dashboard/admins');
+    redirect('/dashboard/admins');
+    return { message: 'Deleted Admin.' };
+  } catch (error) {
+    console.log("Not Deleted, Error: ", error);
+    return { message: 'Database Error: Failed to Delete Admin.' };
+  }
+}

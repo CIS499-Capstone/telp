@@ -1,6 +1,6 @@
 import { EyeIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { deleteTeacher } from '@/app/lib/actions';
+import { deleteAdmin } from '@/app/lib/actions';
 
 export function ViewAdmin({ id }: { id: string }) {
   return (
@@ -37,7 +37,7 @@ export function UpdateAdmin({ id }: { id: string }) {
 }
 
 export function DeleteAdmin({ id }: { id: string }) {
-  const deleteTeacherWithId = deleteTeacher.bind(null, id);
+  const deleteTeacherWithId = deleteAdmin.bind(null, id);
 
   return (
     <form action={deleteTeacherWithId}>
