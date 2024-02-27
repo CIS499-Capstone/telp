@@ -1,6 +1,5 @@
 'use client';
 
-import { Users } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   IdentificationIcon,

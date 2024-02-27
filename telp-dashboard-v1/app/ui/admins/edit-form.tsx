@@ -12,14 +12,14 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { updateUser } from '@/app/lib/actions';
+import { updateTeacher } from '@/app/lib/actions';
 
 export default function EditInvoiceForm({
   teacher,
 }: {
   teacher: TeacherForm;
 }) {
-  const updateTeacherWithId = updateUser.bind(null, teacher.userid);
+  const updateTeacherWithId = updateTeacher.bind(null, teacher.userid);
   
 
   return (

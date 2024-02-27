@@ -88,23 +88,10 @@ export default function ViewTeacherForm({
             {teacher.userid}
           </div>
         </div>
-
-        {/* Teacher Device */}
-        <div className="mb-4">
-          <label htmlFor="teacher" className="mb-2 block text-sm font-medium">
-            Device Number: 
-          </label>
-          <div className="relative">
-            {teacher.id}
-          </div>
-        </div>
         <div className="mt-6 flex justify-end gap-4">
           <UpdateAdmin id={teacher.userid} />
           <DeleteAdmin id={teacher.userid} /> 
         </div>
-      </div>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        Schedule [WIP]
       </div>
     </div>
   );
