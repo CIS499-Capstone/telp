@@ -2,7 +2,7 @@ import { EyeIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/ou
 import Link from 'next/link';
 import { deleteTeacher } from '@/app/lib/actions';
 
-export function ViewTeacher({ id }: { id: string }) {
+export function ViewAdmin({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/admins/${id}/details`}
@@ -13,7 +13,7 @@ export function ViewTeacher({ id }: { id: string }) {
   )
 }
 
-export function RegisterTeacher() {
+export function RegisterAdmin() {
   return (
     <Link
       href="/dashboard/admins/register"
@@ -25,7 +25,7 @@ export function RegisterTeacher() {
   );
 }
 
-export function UpdateTeacher({ id }: { id: string }) {
+export function UpdateAdmin({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/admins/${id}/details/edit-teacher`}
@@ -36,7 +36,7 @@ export function UpdateTeacher({ id }: { id: string }) {
   );
 }
 
-export function DeleteTeacher({ id }: { id: string }) {
+export function DeleteAdmin({ id }: { id: string }) {
   const deleteTeacherWithId = deleteTeacher.bind(null, id);
 
   return (

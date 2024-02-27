@@ -151,8 +151,7 @@ export async function fetchFilteredTeachers(
       JOIN devices ON users.id = devices.userID
       WHERE
         users.role = 'teacher' AND
-        users.name ILIKE ${`%${query}%`} OR
-        users.email ILIKE ${`%${query}%`}
+        (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
       ORDER BY users.id ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -160,7 +159,32 @@ export async function fetchFilteredTeachers(
     return users.rows;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoices.');
+    throw new Error('Failed to fetch teachers.');
+  }
+}
+
+export async function fetchFilteredAdmins(
+  query: string,
+  currentPage: number,
+) {
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const users = await sql<TeachersTable>`
+      SELECT *
+      FROM users
+      WHERE
+        users.role = 'admin' AND
+        (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
+      ORDER BY users.id ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return users.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch admins.');
   }
 }
 
@@ -174,14 +198,28 @@ export async function fetchTeachersPages(query: string) {
     WHERE
       users.role = 'teacher'
   `;
-    //console.log(count);
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
-    //console.log("Entries:", count.rowCount)
-    //console.log("Total Pages:", totalPages)
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of teachers.');
+  }
+}
+
+export async function fetchAdminsPages(query: string) {
+  noStore();
+  try {
+    const count = await sql`
+    SELECT *
+    FROM users
+    WHERE
+      users.role = 'admin'
+  `;
+    const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of admins.');
   }
 }
 

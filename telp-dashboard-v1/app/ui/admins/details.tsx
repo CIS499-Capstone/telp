@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { UpdateTeacher, DeleteTeacher } from './buttons';
+import { UpdateAdmin, DeleteAdmin } from './buttons';
 
 export default function ViewTeacherForm({
   teacher
@@ -99,8 +99,8 @@ export default function ViewTeacherForm({
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-4">
-          <UpdateTeacher id={teacher.userid} />
-          <DeleteTeacher id={teacher.userid} /> 
+          <UpdateAdmin id={teacher.userid} />
+          <DeleteAdmin id={teacher.userid} /> 
         </div>
       </div>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">

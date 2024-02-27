@@ -1,45 +1,45 @@
 import Image from 'next/image';
-import { UpdateTeacher, DeleteTeacher, ViewTeacher } from '@/app/ui/admins/buttons';
-import { fetchFilteredTeachers } from '@/app/lib/data';
+import { ViewAdmin } from '@/app/ui/admins/buttons';
+import { fetchFilteredAdmins } from '@/app/lib/data';
 
-export default async function TeachersTable({
+export default async function AdminsTable({
   query,
   currentPage,
 }: {
   query: string;
   currentPage: number;
 }) {
-  const teachers = await fetchFilteredTeachers(query, currentPage);
+  const admins = await fetchFilteredAdmins(query, currentPage);
 
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {teachers?.map((teacher) => (
+            {admins?.map((admin) => (
               <div
-                key={teacher.userid}
+                key={admin.id}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
                       <Image
-                        src={teacher.image_url}
+                        src={admin.image_url}
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
-                        alt={`${teacher.name}'s profile picture`}
+                        alt={`${admin.name}'s profile picture`}
                       />
-                      <p>{teacher.name}</p>
+                      <p>{admin.name}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{teacher.email}</p>
+                    <p className="text-sm text-gray-500">{admin.email}</p>
                   </div>
-                  <p>{teacher.id}</p>
+                  <p>{admin.id}</p>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div className="flex justify-end gap-2">
-                    <ViewTeacher id={teacher.userid} />
+                    <ViewAdmin id={admin.userid} />
                   </div>
                 </div>
               </div>
@@ -60,46 +60,40 @@ export default async function TeachersTable({
                 <th scope="col" className="px-3 py-5 font-medium">
                   Email
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Device
-                </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white">
-              {teachers?.map((teacher) => (
+              {admins?.map((admin) => (
                 <tr
-                  key={teacher.userid}
+                  key={admin.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
                       <Image
-                        src={teacher.image_url}
+                        src={admin.image_url}
                         className="rounded-full"
                         width={28}
                         height={28}
-                        alt={`${teacher.name}'s profile picture`}
+                        alt={`${admin.name}'s profile picture`}
                       />
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {teacher.userid}
+                    {admin.id}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {teacher.name}
+                    {admin.name}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {teacher.email}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {teacher.id}
+                    {admin.email}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <ViewTeacher id={teacher.userid} />
+                      <ViewAdmin id={admin.userid} />
                     </div>
                   </td>
                 </tr>
