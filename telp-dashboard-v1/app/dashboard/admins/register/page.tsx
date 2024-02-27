@@ -1,5 +1,5 @@
 import Form from '@/app/ui/teachers/register-form';
-import Breadcrumbs from '@/app/ui/teachers/breadcrumbs';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {

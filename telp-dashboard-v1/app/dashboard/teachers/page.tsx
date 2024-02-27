@@ -1,4 +1,4 @@
-import Pagination from '@/app/ui/teachers/pagination';
+import Pagination from '@/app/ui/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/teachers/table';
 import { RegisterTeacher } from '@/app/ui/teachers/buttons';

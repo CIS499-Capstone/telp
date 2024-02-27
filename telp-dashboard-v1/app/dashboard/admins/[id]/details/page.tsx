@@ -1,5 +1,5 @@
 import Form from '@/app/ui/teachers/details';
-import Breadcrumbs from '@/app/ui/teachers/breadcrumbs';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchTeacherById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
