@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { accountSid, authToken } from "./twilioKeys";
+import { fetchEmpID } from "@/app/lib/esp32_actions";
 const client = require('twilio')(accountSid, authToken);
 // To handle a GET request to /api
 export async function GET(request) {
@@ -12,7 +13,8 @@ export async function POST(request) {
   // Do whatever you want
 
   const data = await request.json();
-  console.log(data)
+  const emp_id = await fetchEmpID(data.id);
+  console.log(emp_id);
   const dt = new Date().toTimeString();
   console.log(dt);
   // client.messages
@@ -22,5 +24,5 @@ export async function POST(request) {
   //     to: '+18033894070'
   //   })
   //   .then(message => console.log(message.sid));
-  return NextResponse.json({ message: data.id}, { status: 200 });
+  return NextResponse.json({ message: emp_id}, { status: 200 });
 }
