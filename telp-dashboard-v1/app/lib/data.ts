@@ -247,7 +247,7 @@ export async function fetchTeacherById(id: string) {
   }
 }
 
-export async function fetchAdminsById(id: string) {
+export async function fetchAdminById(id: string) {
   noStore();
   try {
     const data = await sql<AdminForm>`

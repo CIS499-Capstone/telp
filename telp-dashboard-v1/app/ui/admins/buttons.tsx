@@ -28,7 +28,7 @@ export function RegisterAdmin() {
 export function UpdateAdmin({ id }: { id: string }) {
   return (
     <Link
-      href={`/dashboard/admins/${id}/details/edit-teacher`}
+      href={`/dashboard/admins/${id}/details/edit-admin`}
       className="rounded-md border p-2 hover:bg-gray-100"
     >
       <PencilIcon className="w-5" />

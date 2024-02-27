@@ -130,7 +130,7 @@ export async function registerTeacher(prevState: State, formData: FormData) {
 
 export async function registerAdmin(prevState: State, formData: FormData) {
   const validatedFields = RegisterAdmin.safeParse({
-    userid: formData.get('id'),
+    id: formData.get('id'),
     role: 'admin',
     name: formData.get('name'),
     email: formData.get('email') + '@school.edu',
@@ -148,13 +148,15 @@ export async function registerAdmin(prevState: State, formData: FormData) {
   
   // Prepare data for insertion into the database
   const { id, role, name, email, password, image_url } = validatedFields.data;
- 
+  console.log(validatedFields.data);
+
   try {
     await sql`
       INSERT INTO users (id, role, name, email, image_url)
       VALUES (${id}, ${role}, ${name}, ${email}, ${image_url})
     `;
   } catch (error) {
+    console.log(error);
     return {
       message: 'Database Error: Failed to Create Admin User Info.',
     };

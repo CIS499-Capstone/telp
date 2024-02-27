@@ -4,14 +4,6 @@ import Image from 'next/image';
 import { 
   TeacherForm 
 } from '@/app/lib/definitions';
-import {
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import { Button } from '@/app/ui/button';
 import { UpdateTeacher, DeleteTeacher } from './buttons';
 
 export default function ViewTeacherForm({

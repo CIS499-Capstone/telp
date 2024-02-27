@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateTeacher } from '@/app/lib/actions';
 
-export default function EditInvoiceForm({
+export default function EditTeacherForm({
   teacher,
 }: {
   teacher: TeacherForm;
