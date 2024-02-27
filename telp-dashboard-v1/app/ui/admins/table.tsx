@@ -93,7 +93,7 @@ export default async function AdminsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <ViewAdmin id={admin.userid} />
+                      <ViewAdmin id={admin.id} />
                     </div>
                   </td>
                 </tr>

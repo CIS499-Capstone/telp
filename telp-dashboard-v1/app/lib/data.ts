@@ -1,8 +1,9 @@
 import { sql} from '@vercel/postgres';
 import { comment } from 'postcss';
 import {
-  TeachersTable,
+  UsersTable,
   TeacherForm,
+  AdminForm,
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -145,7 +146,7 @@ export async function fetchFilteredTeachers(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const users = await sql<TeachersTable>`
+    const users = await sql<UsersTable>`
       SELECT *
       FROM users
       JOIN devices ON users.id = devices.userID
@@ -171,7 +172,7 @@ export async function fetchFilteredAdmins(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const users = await sql<TeachersTable>`
+    const users = await sql<UsersTable>`
       SELECT *
       FROM users
       WHERE
@@ -243,5 +244,27 @@ export async function fetchTeacherById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch Teacher.');
+  }
+}
+
+export async function fetchAdminsById(id: string) {
+  noStore();
+  try {
+    const data = await sql<AdminForm>`
+      SELECT *
+      FROM users
+      JOIN authinfo ON users.email = authinfo.email
+      WHERE users.id = ${id};
+    `;
+
+    const admin = data.rows.map((admin) => ({
+      ...admin,
+    }));
+
+    console.log(admin); 
+    return admin[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Admin.');
   }
 }

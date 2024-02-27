@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { 
-  TeacherForm 
+  AdminForm 
 } from '@/app/lib/definitions';
 import {
   CheckIcon,
@@ -14,10 +14,10 @@ import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { UpdateAdmin, DeleteAdmin } from './buttons';
 
-export default function ViewTeacherForm({
-  teacher
+export default function ViewAdminForm({
+  admin
 }: {
-  teacher: TeacherForm;
+  admin: AdminForm;
 }) {
   
 
@@ -27,14 +27,14 @@ export default function ViewTeacherForm({
         {/* Teacher Header */}
         <div className="mb-2 flex items-center">
           <Image
-            src={teacher.image_url}
+            src={admin.image_url}
             className="mr-2 rounded-full"
             width={48}
             height={48}
-            alt={`${teacher.name}'s profile picture`}
+            alt={`${admin.name}'s profile picture`}
           />
           <label htmlFor="teacher" className="mb-2 block text-lg font-medium">
-            {teacher.name}
+            {admin.name}
           </label>
         </div>
 
@@ -44,7 +44,7 @@ export default function ViewTeacherForm({
             Email: 
           </label>
           <div className="relative">
-            {teacher.email}
+            {admin.email}
           </div>
         </div>
 
@@ -75,7 +75,7 @@ export default function ViewTeacherForm({
             Role: 
           </label>
           <div className="relative">
-            {teacher.role}
+            {admin.role}
           </div>
         </div>
 
@@ -85,12 +85,12 @@ export default function ViewTeacherForm({
             ID Number: 
           </label>
           <div className="relative">
-            {teacher.userid}
+            {admin.id}
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-4">
-          <UpdateAdmin id={teacher.userid} />
-          <DeleteAdmin id={teacher.userid} /> 
+          <UpdateAdmin id={admin.id} />
+          <DeleteAdmin id={admin.id} /> 
         </div>
       </div>
     </div>
