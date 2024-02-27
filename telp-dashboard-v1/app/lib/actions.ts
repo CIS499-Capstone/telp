@@ -168,11 +168,17 @@ export async function updateUser(id: string, formData: FormData) {
 }
 
 export async function deleteTeacher(id: string) {
+  console.log("Deleting ID: " + Number(id));
   try {
-    await sql`DELETE FROM users WHERE id = ${id}`;
+    await sql`DELETE FROM incidents WHERE userID = ${id}`;
+    await sql`DELETE FROM devices WHERE userid = ${id}`;
+    await sql`DELETE FROM authinfo WHERE users.id = ${id} AND users.email = authInfo.email`;
+    await sql`DELETE FROM users AS user WHERE user.id = ${id}`;
     revalidatePath('/dashboard/teachers');
+    redirect('/dashboard/teachers');
     return { message: 'Deleted teacher.' };
   } catch (error) {
+    console.log("Not Deleted, Error: ", error);
     return { message: 'Database Error: Failed to Delete Teacher.' };
   }
 }
