@@ -4,6 +4,7 @@ import {
   UsersTable,
   TeacherForm,
   AdminForm,
+  ScheduleForm,
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -266,5 +267,21 @@ export async function fetchAdminById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch Admin.');
+  }
+}
+
+export async function fetchScheduleById(id: string) {
+  noStore();
+  try {
+    const data = await sql<ScheduleForm>`
+      SELECT *
+      FROM schedule
+      WHERE userid = ${id};
+    `;
+    
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Teacher Schedule.');
   }
 }

@@ -64,3 +64,23 @@ export type AdminForm = {
   password: string;
   image_url: string;
 };
+
+export type ScheduleForm = {
+  userid: string;
+  day: string;
+  t730: number;
+  t800: number;
+  t830: number;
+  t900: number;
+  t930: number;
+  t1000: number;
+  t1030: number;
+  t1100: number;
+  t1130: number;
+  t1200: number;
+  t1230: number;
+  t100: number;
+  t130: number;
+  t200: number;
+  t230: number;
+};
