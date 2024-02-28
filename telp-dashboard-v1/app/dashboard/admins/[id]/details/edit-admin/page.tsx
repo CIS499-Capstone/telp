@@ -1,6 +1,6 @@
-import Form from '@/app/ui/teachers/edit-form';
+import Form from '@/app/ui/admins/edit-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import { fetchTeacherById } from '@/app/lib/data';
+import { fetchAdminById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
  
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
-  const teacher = await fetchTeacherById(id);
+  const admin = await fetchAdminById(id);
   
-  if (!teacher) {
+  if (!admin) {
     notFound();
   }
   
@@ -20,15 +20,15 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Teachers', href: '/dashboard/teachers' },
+          { label: 'Admins', href: '/dashboard/admins' },
           {
             label: 'Edit Info',
-            href: `/dashboard/teachers/${id}/details/edit-teacher`,
+            href: `/dashboard/admins/${id}/details/edit-admin`,
             active: true,
           },
         ]}
       />
-      <Form teacher={teacher}/>
+      <Form admin={admin}/>
     </main>
   );
 }

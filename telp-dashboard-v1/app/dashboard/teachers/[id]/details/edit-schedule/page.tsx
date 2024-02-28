@@ -1,4 +1,4 @@
-import Form from '@/app/ui/teachers/edit-form';
+import Form from '@/app/ui/teachers/schedule-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchTeacherById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Teachers', href: '/dashboard/teachers' },
+          { label: 'Teachers', href: '/dashboard/Teachers' },
           {
             label: 'Edit Info',
             href: `/dashboard/teachers/${id}/details/edit-teacher`,

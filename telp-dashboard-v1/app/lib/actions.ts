@@ -50,7 +50,9 @@ const FormSchema = z.object({
 });
  
 const RegisterTeacher = FormSchema;
+const RegisterAdmin = FormSchema.omit({deviceid: true});
 const UpdateTeacher = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true})
+const UpdateAdmin = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true, deviceid: true})
 
 export type State = {
   errors?: {
@@ -126,7 +128,57 @@ export async function registerTeacher(prevState: State, formData: FormData) {
   redirect('/dashboard/teachers');
 }
 
-export async function updateUser(id: string, formData: FormData) {
+export async function registerAdmin(prevState: State, formData: FormData) {
+  const validatedFields = RegisterAdmin.safeParse({
+    id: formData.get('id'),
+    role: 'admin',
+    name: formData.get('name'),
+    email: formData.get('email') + '@school.edu',
+    password: await bcrypt.hash(formData.get('password'), 10),
+    image_url: formData.get('image_url'),
+  });
+ 
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Register Admin.',
+    };
+  }
+  
+  // Prepare data for insertion into the database
+  const { id, role, name, email, password, image_url } = validatedFields.data;
+  console.log(validatedFields.data);
+
+  try {
+    await sql`
+      INSERT INTO users (id, role, name, email, image_url)
+      VALUES (${id}, ${role}, ${name}, ${email}, ${image_url})
+    `;
+  } catch (error) {
+    console.log(error);
+    return {
+      message: 'Database Error: Failed to Create Admin User Info.',
+    };
+  }
+
+  try {
+    await sql`
+      INSERT INTO authinfo (email, password)
+      VALUES (${email}, ${password})
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Admin Auth Info.',
+    };
+  }
+
+  // Revalidate the cache for the teachers page and redirect the user.
+  revalidatePath('/dashboard/admins');
+  redirect('/dashboard/admins');
+}
+
+export async function updateTeacher(id: string, formData: FormData) {
   console.log("ID: ", id);
   const { name, deviceid } = UpdateTeacher.parse({
     name: formData.get('name'),
@@ -167,6 +219,36 @@ export async function updateUser(id: string, formData: FormData) {
   redirect('/dashboard/teachers');
 }
 
+export async function updateAdmin(id: string, formData: FormData) {
+  console.log("ID: ", id);
+  const { name } = UpdateAdmin.parse({
+    name: formData.get('name'),
+  });
+ 
+  try {
+    await sql`
+        UPDATE users
+        SET name = ${name}
+        WHERE id = ${id}
+      `;
+  } catch (error) {
+    return { message: 'Database Error: Failed to Update User Info.' };
+  }
+ 
+  // try {
+  //   await sql`
+  //       UPDATE authinfo
+  //       SET password = ${password}
+  //       WHERE email = ${email}
+  //     `;
+  // } catch (error) {
+  //   return { message: 'Database Error: Failed to Update Auth Info.' };
+  // }
+ 
+  revalidatePath('/dashboard/admins');
+  redirect('/dashboard/admins');
+}
+
 export async function deleteTeacher(id: string) {
   console.log("Deleting ID: " + Number(id));
   try {
@@ -180,5 +262,20 @@ export async function deleteTeacher(id: string) {
   } catch (error) {
     console.log("Not Deleted, Error: ", error);
     return { message: 'Database Error: Failed to Delete Teacher.' };
+  }
+}
+
+
+export async function deleteAdmin(id: string) {
+  console.log("Deleting ID: " + Number(id));
+  try {
+    await sql`DELETE FROM authinfo WHERE users.id = ${id} AND users.email = authInfo.email`;
+    await sql`DELETE FROM users AS user WHERE user.id = ${id}`;
+    revalidatePath('/dashboard/admins');
+    redirect('/dashboard/admins');
+    return { message: 'Deleted Admin.' };
+  } catch (error) {
+    console.log("Not Deleted, Error: ", error);
+    return { message: 'Database Error: Failed to Delete Admin.' };
   }
 }

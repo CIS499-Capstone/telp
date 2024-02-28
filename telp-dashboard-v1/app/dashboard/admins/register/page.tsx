@@ -1,9 +1,9 @@
-import Form from '@/app/ui/teachers/register-form';
+import Form from '@/app/ui/admins/register-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
-  title: 'Register Teacher',
+  title: 'Register Admin',
 };
 
 export default async function Page() {
@@ -11,10 +11,10 @@ export default async function Page() {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Teachers', href: '/dashboard/teachers' },
+          { label: 'Admins', href: '/dashboard/admins' },
           {
-            label: 'Register Teacher',
-            href: '/dashboard/teachers/register',
+            label: 'Register Admin',
+            href: '/dashboard/admins/register',
             active: true,
           },
         ]}

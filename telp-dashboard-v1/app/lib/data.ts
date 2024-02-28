@@ -1,8 +1,10 @@
 import { sql} from '@vercel/postgres';
 import { comment } from 'postcss';
 import {
-  TeachersTable,
+  UsersTable,
   TeacherForm,
+  AdminForm,
+  ScheduleForm,
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -145,14 +147,13 @@ export async function fetchFilteredTeachers(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const users = await sql<TeachersTable>`
+    const users = await sql<UsersTable>`
       SELECT *
       FROM users
       JOIN devices ON users.id = devices.userID
       WHERE
         users.role = 'teacher' AND
-        users.name ILIKE ${`%${query}%`} OR
-        users.email ILIKE ${`%${query}%`}
+        (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
       ORDER BY users.id ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -160,7 +161,32 @@ export async function fetchFilteredTeachers(
     return users.rows;
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoices.');
+    throw new Error('Failed to fetch teachers.');
+  }
+}
+
+export async function fetchFilteredAdmins(
+  query: string,
+  currentPage: number,
+) {
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const users = await sql<UsersTable>`
+      SELECT *
+      FROM users
+      WHERE
+        users.role = 'admin' AND
+        (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
+      ORDER BY users.id ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return users.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch admins.');
   }
 }
 
@@ -174,14 +200,28 @@ export async function fetchTeachersPages(query: string) {
     WHERE
       users.role = 'teacher'
   `;
-    //console.log(count);
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
-    //console.log("Entries:", count.rowCount)
-    //console.log("Total Pages:", totalPages)
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of teachers.');
+  }
+}
+
+export async function fetchAdminsPages(query: string) {
+  noStore();
+  try {
+    const count = await sql`
+    SELECT *
+    FROM users
+    WHERE
+      users.role = 'admin'
+  `;
+    const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of admins.');
   }
 }
 
@@ -205,5 +245,43 @@ export async function fetchTeacherById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch Teacher.');
+  }
+}
+
+export async function fetchAdminById(id: string) {
+  noStore();
+  try {
+    const data = await sql<AdminForm>`
+      SELECT *
+      FROM users
+      JOIN authinfo ON users.email = authinfo.email
+      WHERE users.id = ${id};
+    `;
+
+    const admin = data.rows.map((admin) => ({
+      ...admin,
+    }));
+
+    console.log(admin); 
+    return admin[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Admin.');
+  }
+}
+
+export async function fetchScheduleById(id: string) {
+  noStore();
+  try {
+    const data = await sql<ScheduleForm>`
+      SELECT *
+      FROM schedule
+      WHERE userid = ${id};
+    `;
+    
+    return data.rows;
+  } catch (error) {
+    console.log('Database Error:', error);
+    throw new Error('Failed to fetch Teacher Schedule.');
   }
 }

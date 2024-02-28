@@ -1,4 +1,4 @@
-import Pagination from '@/app/ui/teachers/pagination';
+import Pagination from '@/app/ui/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/teachers/table';
 import { RegisterTeacher } from '@/app/ui/teachers/buttons';
@@ -36,7 +36,7 @@ export default async function Page({
       ) : (
         <div className="w-full">
           <div className="flex w-full items-center justify-between">
-            <h1 className={`${lusitana.className} text-2xl`}>Teachers Page</h1>
+            <h1 className={`${lusitana.className} text-2xl`}>Teachers List</h1>
           </div>
           <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
             <Search placeholder="Search teachers..." />
