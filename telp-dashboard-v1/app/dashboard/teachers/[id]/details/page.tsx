@@ -1,5 +1,6 @@
 import Form from '@/app/ui/teachers/details';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
+import Table from '@/app/ui/teachers/schedule';
 import { fetchTeacherById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
@@ -29,6 +30,10 @@ export default async function Page({ params }: { params: { id: string } }) {
         ]}
       />
       <Form teacher={teacher}/>
+      <div className="rounded-md bg-gray-50 p-4 md:p-6">
+        Schedule
+        <Table id={teacher.userid} />
+      </div>
     </main>
   );
 }

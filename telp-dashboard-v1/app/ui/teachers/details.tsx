@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Table from '@/app/ui/teachers/schedule';
 import { 
   TeacherForm 
 } from '@/app/lib/definitions';
@@ -95,10 +94,6 @@ export default function ViewTeacherForm({
           <UpdateTeacher id={teacher.userid} />
           <DeleteTeacher id={teacher.userid} /> 
         </div>
-      </div>
-      <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        Schedule
-        <Table id={teacher.userid} />
       </div>
     </div>
   );

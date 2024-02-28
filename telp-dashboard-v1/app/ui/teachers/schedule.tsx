@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { fetchScheduleById } from '@/app/lib/data';
 
 export default async function ScheduleTable({
