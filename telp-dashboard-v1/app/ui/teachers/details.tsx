@@ -97,7 +97,7 @@ export default function ViewTeacherForm({
         </div>
       </div>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        Schedule [WIP]
+        Schedule
         <Table id={teacher.userid} />
       </div>
     </div>

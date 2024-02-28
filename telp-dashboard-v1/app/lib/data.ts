@@ -281,7 +281,7 @@ export async function fetchScheduleById(id: string) {
     
     return data.rows;
   } catch (error) {
-    console.error('Database Error:', error);
+    console.log('Database Error:', error);
     throw new Error('Failed to fetch Teacher Schedule.');
   }
 }

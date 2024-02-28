@@ -100,49 +100,49 @@ export default async function ScheduleTable({
                     {schedule.day}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t730}
+                    {schedule['7:30']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t800}
+                    {schedule['8:00']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t830}
+                    {schedule['8:30']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t900}
+                    {schedule['9:00']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t930}
+                    {schedule['9:30']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t1000}
+                    {schedule['10:00']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t1030}
+                    {schedule['10:30']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t1100}
+                    {schedule['11:00']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t1130}
+                    {schedule['11:30']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t1200}
+                    {schedule['12:00']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t1230}
+                    {schedule['12:30']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t100}
+                    {schedule['1:00']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t130}
+                    {schedule['1:30']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t200}
+                    {schedule['2:00']}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule.t230}
+                    {schedule['2:30']}
                   </td>
                 </tr>
               ))}
