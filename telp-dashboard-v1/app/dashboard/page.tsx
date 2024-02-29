@@ -9,15 +9,11 @@ import {
   //   RevenueChartSkeleton,
   LatestCommentsSkeleton,
 } from '@/app/ui/skeletons';
-import { Users } from '@/app/lib/definitions';
-let teacher: Users[] | null = null;
 
 export async function getTeacher() {
-  if (!teacher) {
     let session = await auth();
     let userEmail = session?.user?.email ?? '';
-    teacher = await fetchUserFromAuthInfo(userEmail);
-  }
+    let teacher = await fetchUserFromAuthInfo(userEmail);
   return teacher;
 }
 
