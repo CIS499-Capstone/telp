@@ -56,6 +56,13 @@ export type TeacherForm = {
   id: string;
 };
 
+export type IncidentForm = {
+  incidentid: string;
+  name: string;
+  comment: string;
+  time: string;
+};
+
 export type AdminForm = {
   id: string;
   role: 'teacher' | 'admin';

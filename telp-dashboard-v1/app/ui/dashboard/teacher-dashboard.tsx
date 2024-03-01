@@ -6,6 +6,7 @@ import { signOut } from '@/auth';
 import { UserIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 import Image from 'next/image';
+import { ViewIncident } from '../incidents/buttons';
 import { fetchTeacherIncidents } from '@/app/lib/data';
 
 export default async function TeacherDashboard({ id }: { id: string }) {
@@ -17,20 +18,49 @@ export default async function TeacherDashboard({ id }: { id: string }) {
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Your Incidents
       </h1>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1">
-        {incidents.map((incident, i) => (
-          <div
-            key={i}
-            className="w-full cursor-pointer rounded-lg bg-gray-100 p-4 hover:bg-blue-100"
-          >
-            <h3 className="font-bold italic underline">{incident.name}</h3>
-            <p className="text-gray-700">
-              {incident.comment}
-              Made at {new Date(incident.time).toLocaleString()}
-            </p>
-            {/* Add edit functionality here */}
-          </div>
-        ))}
+      <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
+        <table className="hidden min-w-full text-gray-900 md:table">
+          <thead className="rounded-lg text-left text-sm font-normal">
+            <tr>
+              <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                Student ID
+              </th>
+              <th scope="col" className="px-3 py-5 font-medium">
+                Student Name
+              </th>
+              <th scope="col" className="px-3 py-5 font-medium">
+                Comment
+              </th>
+              <th scope="col" className="px-3 py-5 font-medium">
+                Date
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white">
+            {incidents?.map((incident, i) => (
+              <tr
+                key={i}
+                className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
+              >
+                <td className="whitespace-nowrap px-3 py-3">
+                  {incident.studentId}
+                </td>
+                <td className="whitespace-nowrap px-3 py-3">{incident.name}</td>
+                <td className="whitespace-nowrap px-3 py-3">
+                  {incident.comment}
+                </td>
+                <td className="whitespace-nowrap px-3 py-3">
+                  {new Date(incident.time).toLocaleString()}
+                </td>
+                <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                  <div className="flex justify-end gap-3">
+                    <ViewIncident incidentid={incident.incidentid} />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
