@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-app\api\esp32\twilioKeys.js
+app\api\esp32\keys.js
 
