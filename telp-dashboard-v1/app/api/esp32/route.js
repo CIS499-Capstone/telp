@@ -13,16 +13,14 @@ export async function POST(request) {
   // Do whatever you want
 
   const data = await request.json();
-  const emp_id = await fetchEmpData(data.id);
-  console.log(emp_id);
+  const emp_name = await fetchEmpData(data.id);
   const dt = new Date().toTimeString();
-  // console.log(dt);
-  // client.messages
-  //   .create({
-  //     body: 'ALERT! Emergency in Mr. Jones CLASSROOM @' + dt,
-  //     messagingServiceSid: 'MGdd0541aa1a1002062aeef44512e39993',
-  //     to: '+18033894070'
-  //   })
-  //   .then(message => console.log(message.sid));
-  return NextResponse.json({ message: emp_id}, { status: 200 });
+  client.messages
+    .create({
+      body: 'ALERT! Emergency with ' + emp_name['name'] + " in " + emp_name['location'] + ' @ ' + dt,
+      messagingServiceSid: 'MGdd0541aa1a1002062aeef44512e39993',
+      to: '+18033894070'
+    })
+    .then(message => console.log(message.sid));
+  return NextResponse.json({ message: emp_name}, { status: 200 });
 }

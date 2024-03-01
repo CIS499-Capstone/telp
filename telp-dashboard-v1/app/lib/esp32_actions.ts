@@ -3,29 +3,42 @@ import { comment } from 'postcss';
 
 export async function fetchEmpData(id: number){
     try {
+        // const query = sql`
+        //   SELECT name
+        //   FROM users
+        //   WHERE id = (
+        //   SELECT
+        //     userID
+        //   FROM devices
+        //   WHERE ${id} = id) 
+        // `;
+        const dt = new Date();
+        // dt.setHours(9,15);
+        const dayOfWeek = getDayOfWeek(dt);
+        const timeSlot = getTimeSlot(dt);
         const query = sql`
-          SELECT name
-          FROM users
-          WHERE id = (
-          SELECT
-            userID
-          FROM devices
-          WHERE ${id} = id) 
+        SELECT *
+        FROM schedule as s
+        INNER JOIN users AS u ON u.id = s.userID
+        INNER JOIN devices AS d ON d.userID = s.userID
+        WHERE (d.id = ${id}) AND (s.day = ${dayOfWeek})
         `;
     
         const result = await query;
-        // console.log(result);
-        console.log("EMP_ID res: ",result.rows[0]['name']);
-        const dt = new Date();
-        dt.setHours(13,15);
-        const dayOfWeek = getDayOfWeek(dt);
-        const timeSlot = getTimeSlot(dt);
-        console.log(dayOfWeek + " " + timeSlot);
-        const scheduleQuery = sql`
-            SELECT
+        const name = result.rows[0]['name'];
+        const query2 = sql`
+        SELECT name 
+        FROM locations
+        WHERE id = ${result.rows[0][timeSlot]}
         `;
+        const result2 = await query2;
+        const location = result2.rows[0]['name'];
+        return {'name': name, 'location': location};
         
-        return result.rows[0]['name'];
+ 
+        
+        // return result.rows[0]['name'];
+        return'';
       } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch teacher incidents data.');
@@ -43,7 +56,7 @@ function getDayOfWeek(dt: Date){
     }
 }
 function getTimeSlot(dt: Date){
-    dt.setHours(12,15);
+    
     const ts = dt.toTimeString().substring(0,5);
     // console.log(ts);
     if(ts < '08:00'){
