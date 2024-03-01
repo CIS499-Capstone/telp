@@ -5,6 +5,7 @@ import {
   TeacherForm,
   AdminForm,
   ScheduleForm,
+  IncidentForm,
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
@@ -93,10 +94,10 @@ export async function fetchTeacherIncidents(id: string) {
     const result = await query;
 
     const incidents = result.rows.map((row) => ({
-      incidentid: row.id as number,
+      incidentid: row.incidentid as string,
       comment: row.comment as string,
       time: row.time as string,
-      studentId: row.student_id as number,
+      studentId: row.student_id as string,
       name: row.name as string,
     }));
 
@@ -283,5 +284,27 @@ export async function fetchScheduleById(id: string) {
   } catch (error) {
     console.log('Database Error:', error);
     throw new Error('Failed to fetch Teacher Schedule.');
+  }
+}
+
+export async function fetchIncidentById(id: string) {
+  noStore();
+  try {
+    console.log("prior testing")
+    console.log("*****************************");
+    console.log("id is: ",id);
+    const data = await sql<IncidentForm>`
+      SELECT *
+      FROM incidents
+      WHERE incidents.incidentid = ${id};
+    `;
+
+    const incident = data.rows.map((incident) => ({
+      ...incident,
+    }));
+    return incident[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Incident.');
   }
 }

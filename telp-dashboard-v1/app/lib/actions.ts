@@ -48,11 +48,30 @@ const FormSchema = z.object({
     invalid_type_error: "Please enter a Device number.",
   }),
 });
+
+const IncidentFormSchema = z.object({
+  incidentid: z.string({
+    invalid_type_error: "Please enter a valid incident ID.",
+  }),
+  name: z.string({
+    invalid_type_error: "Please enter a name for the incident.",
+  }),
+  comment: z.string({
+    invalid_type_error: "Please enter a comment for the incident.",
+  }),
+  time: z.string({
+    invalid_type_error: "Please enter a valid timestamp for the incident.",
+  }),
+});
+
  
 const RegisterTeacher = FormSchema;
 const RegisterAdmin = FormSchema.omit({deviceid: true});
 const UpdateTeacher = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true})
 const UpdateAdmin = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true, deviceid: true})
+
+const UpdateIncident = IncidentFormSchema.pick({ comment: true });
+
 
 export type State = {
   errors?: {
@@ -278,4 +297,30 @@ export async function deleteAdmin(id: string) {
     console.log("Not Deleted, Error: ", error);
     return { message: 'Database Error: Failed to Delete Admin.' };
   }
+}
+
+export async function updateIncident(id: string, formData: FormData) {
+  console.log("Incident ID: ", id);
+  
+  // Parse the relevant fields from the form data using the UpdateIncident schema
+  const { comment } = UpdateIncident.parse({
+    comment: formData.get('comment'),
+  });
+
+  try {
+    // Execute the SQL query to update the incident in the database
+    await sql`
+      UPDATE incidents
+      SET comment = ${comment}
+      WHERE incidentid = ${id}
+    `;
+  } catch (error) {
+    return { message: 'Database Error: Failed to Update Incident Info.' };
+  }
+
+  // Revalidate the cache for the appropriate page
+  revalidatePath('/dashboard');
+
+  // Redirect the user to the appropriate dashboard
+  redirect('/dashboard');
 }
