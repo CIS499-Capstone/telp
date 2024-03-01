@@ -21,7 +21,7 @@ export async function fetchEmpData(id: number){
         FROM schedule as s
         INNER JOIN users AS u ON u.id = s.userID
         INNER JOIN devices AS d ON d.userID = s.userID
-        WHERE (d.id = ${id}) AND (s.day = ${dayOfWeek})
+        WHERE (d.deviceid = ${id}) AND (s.day = ${dayOfWeek})
         `;
     
         const result = await query;
