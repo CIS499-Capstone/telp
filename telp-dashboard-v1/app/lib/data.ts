@@ -1,11 +1,16 @@
 import { sql} from '@vercel/postgres';
 import { comment } from 'postcss';
+import {
+  UsersTable,
+  TeacherForm,
+  AdminForm,
+  ScheduleForm,
+  IncidentForm,
+} from './definitions';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchCardData() {
   try {
-    // You can probably combine these into a single SQL query
-    // However, we are intentionally splitting them to demonstrate
-    // how to initialize multiple queries in parallel with JS.
     const teacherCountPromise = sql`SELECT COUNT(*) FROM users WHERE role = 'teacher'`;
     const incidentsCountPromise = sql`SELECT COUNT(*) FROM incidents`;
     const commentCountPromise = sql`SELECT COUNT(*) FROM incidents WHERE comment != ''`;
@@ -15,12 +20,11 @@ export async function fetchCardData() {
       incidentsCountPromise,
       commentCountPromise
     ]);
-    //console.log("Data on Cards: ",data[0]);
 
     const numberOfTeachers = Number(data[0].rows[0].count ?? '0');
     const numberOfIncidents = Number(data[1].rows[0].count ?? '0');
     const numberOfComments = Number(data[2].rows[0].count ?? '0');
-    const numberOfPendingComments = numberOfIncidents - numberOfComments; // because every incident should have a comment
+    const numberOfPendingComments = numberOfIncidents - numberOfComments; 
 
     return {
       numberOfIncidents,
@@ -64,7 +68,6 @@ export async function fetchCommentsData() {
       comment: row.comment as string,
       time: row.time as Date,
     }));
-    //console.log("Comment Data: ",commentData);
 
     return commentData;
   } catch (error) {
@@ -73,8 +76,8 @@ export async function fetchCommentsData() {
   }
 }
 
-//feed id into this function
-export async function fetchTeacherIncidents(id: number) {
+
+export async function fetchTeacherIncidents(id: string) {
   try {
     const query = sql`
       SELECT
@@ -89,13 +92,12 @@ export async function fetchTeacherIncidents(id: number) {
     `;
 
     const result = await query;
-    console.log("Incident res: ",result.rows);
 
     const incidents = result.rows.map((row) => ({
-      incidentid: row.id as number,
+      incidentid: row.incidentid as string,
       comment: row.comment as string,
       time: row.time as string,
-      studentId: row.student_id as number,
+      studentId: row.student_id as string,
       name: row.name as string,
     }));
 
@@ -123,8 +125,8 @@ export async function fetchUserFromAuthInfo(authEmail :string){
     const result = await query;
 
     const teacher = result.rows.map((row) => ({
-      id: row.id as number,
-      role: row.role as string,
+      id: row.id as string,
+      role: row.role === 'teacher' || row.role === 'admin' ? row.role : 'unknown', // Ensure role is 'teacher' or 'admin'
       image_url: row.image_url as string,
       name: row.name as string,
       email: row.email as string,
@@ -134,5 +136,175 @@ export async function fetchUserFromAuthInfo(authEmail :string){
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch comment data.');
+  }
+}
+
+const ITEMS_PER_PAGE = 6;
+export async function fetchFilteredTeachers(
+  query: string,
+  currentPage: number,
+) {
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const users = await sql<UsersTable>`
+      SELECT *
+      FROM users
+      JOIN devices ON users.id = devices.userID
+      WHERE
+        users.role = 'teacher' AND
+        (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
+      ORDER BY users.id ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return users.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch teachers.');
+  }
+}
+
+export async function fetchFilteredAdmins(
+  query: string,
+  currentPage: number,
+) {
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const users = await sql<UsersTable>`
+      SELECT *
+      FROM users
+      WHERE
+        users.role = 'admin' AND
+        (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
+      ORDER BY users.id ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return users.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch admins.');
+  }
+}
+
+export async function fetchTeachersPages(query: string) {
+  noStore();
+  try {
+    const count = await sql`
+    SELECT *
+    FROM users
+    JOIN devices ON users.id = devices.userid
+    WHERE
+      users.role = 'teacher'
+  `;
+    const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of teachers.');
+  }
+}
+
+export async function fetchAdminsPages(query: string) {
+  noStore();
+  try {
+    const count = await sql`
+    SELECT *
+    FROM users
+    WHERE
+      users.role = 'admin'
+  `;
+    const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of admins.');
+  }
+}
+
+export async function fetchTeacherById(id: string) {
+  noStore();
+  try {
+    const data = await sql<TeacherForm>`
+      SELECT *
+      FROM users
+      JOIN authinfo ON users.email = authinfo.email
+      JOIN devices ON users.id = devices.userid
+      WHERE users.id = ${id};
+    `;
+
+    const teacher = data.rows.map((teacher) => ({
+      ...teacher,
+    }));
+
+    console.log(teacher); 
+    return teacher[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Teacher.');
+  }
+}
+
+export async function fetchAdminById(id: string) {
+  noStore();
+  try {
+    const data = await sql<AdminForm>`
+      SELECT *
+      FROM users
+      JOIN authinfo ON users.email = authinfo.email
+      WHERE users.id = ${id};
+    `;
+
+    const admin = data.rows.map((admin) => ({
+      ...admin,
+    }));
+
+    console.log(admin); 
+    return admin[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Admin.');
+  }
+}
+
+export async function fetchScheduleById(id: string) {
+  noStore();
+  try {
+    const data = await sql<ScheduleForm>`
+      SELECT *
+      FROM schedule
+      WHERE userid = ${id};
+    `;
+    
+    return data.rows;
+  } catch (error) {
+    console.log('Database Error:', error);
+    throw new Error('Failed to fetch Teacher Schedule.');
+  }
+}
+
+export async function fetchIncidentById(id: string) {
+  noStore();
+  try {
+    console.log("prior testing")
+    console.log("*****************************");
+    console.log("id is: ",id);
+    const data = await sql<IncidentForm>`
+      SELECT *
+      FROM incidents
+      WHERE incidents.incidentid = ${id};
+    `;
+
+    const incident = data.rows.map((incident) => ({
+      ...incident,
+    }));
+    return incident[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch Incident.');
   }
 }

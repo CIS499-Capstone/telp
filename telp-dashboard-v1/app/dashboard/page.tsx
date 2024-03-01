@@ -10,28 +10,28 @@ import {
   LatestCommentsSkeleton,
 } from '@/app/ui/skeletons';
 
-//useSession is on Client Side not server side ahhhhhhhhhhhhhhhhh!!!!!!!!!!!!!!
+export async function getTeacher() {
+    let session = await auth();
+    let userEmail = session?.user?.email ?? '';
+    let teacher = await fetchUserFromAuthInfo(userEmail);
+  return teacher;
+}
 
 //async because its a server component
 export default async function Page() {
-  let session = await auth();
-  console.log('session: ', session);
-  let userEmail = session?.user?.email ?? ''; // Default value is an empty string if email is not available
-  console.log('User: ', userEmail);
+  const teacher = await getTeacher();
   const {
     numberOfIncidents,
     numberOfTeachers,
     numberOfComments,
     numberOfPendingComments,
   } = await fetchCardData();
-
-  const teacher = await fetchUserFromAuthInfo(userEmail);
   console.log('teacher authed is: ', teacher);
 
   return (
     <main>
       <div className="mt-0 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        {teacher[0].role === 'teacher' ? (
+        {teacher && teacher.length > 0 && teacher[0].role === 'teacher' ? (
           <TeacherDashboard id={teacher[0].id} />
         ) : (
           <div className="flex w-full flex-col gap-4 p-4 md:col-span-8">

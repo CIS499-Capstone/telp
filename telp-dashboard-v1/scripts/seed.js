@@ -214,7 +214,7 @@ async function seedDevices(client) {
     // Create the "devices" table if it doesn't exist
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS devices (
-        id SERIAL PRIMARY KEY,
+        deviceid SERIAL PRIMARY KEY,
         userID INTEGER UNIQUE
       );
     `;
@@ -224,10 +224,10 @@ async function seedDevices(client) {
     // Insert data into the "devices" table
     const insertedDevices = await Promise.all(
       devices.map(async (device) => {
-        const [id, userID] = Object.entries(device)[0];
+        const [deviceid, userID] = Object.entries(device)[0];
         return client.query(
-          'INSERT INTO devices (id, userID) VALUES ($1, $2) ON CONFLICT (id) DO NOTHING RETURNING *',
-          [id, userID]
+          'INSERT INTO devices (deviceid, userID) VALUES ($1, $2) ON CONFLICT (deviceid) DO NOTHING RETURNING *',
+          [deviceid, userID]
         );
       }),
     );
@@ -329,51 +329,3 @@ main().catch((err) => {
     err,
   );
 });
-
-// const { db } = require('@vercel/postgres');
-// const bcrypt = require('bcrypt');
-
-// async function seedAuthInfo(client) {
-//   try {
-//     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-
-//     // Insert data into the "users" table
-//     const hashedPassword1 = await bcrypt.hash('safestphrase', 10);
-//     const hashedPassword2 = await bcrypt.hash('passphrase', 10);
-//     const hashedPassword3 = await bcrypt.hash('codephrase', 10);
-//     const hashedPassword4 = await bcrypt.hash('passcode', 10);
-//     const hashedPassword5 = await bcrypt.hash('password', 10);
-//     const insertedAuthInfo = await client.sql`
-//       INSERT INTO authinfo (email, password) VALUES
-//       ('lee.robinson@school.edu', ${hashedPassword1}),
-//       ('hector.simpson@school.edu', ${hashedPassword2}),
-//       ('steven.tey@school.edu', ${hashedPassword3}),
-//       ('steph.dietz@school.edu', ${hashedPassword4}),
-//       ('michael.novotny@school.edu', ${hashedPassword5});
-//     `;
-
-//     console.log(`Seeded 5 authInfo`);
-
-//     return {
-//       authInfo: insertedAuthInfo,
-//     };
-//   } catch (error) {
-//     console.error('Error seeding users:', error);
-//     throw error;
-//   }
-// }
-
-// async function main() {
-//   const client = await db.connect();
-
-//   await seedAuthInfo(client);
-
-//   await client.end();
-// }
-
-// main().catch((err) => {
-//   console.error(
-//     'An error occurred while attempting to seed the database:',
-//     err,
-//   );
-// });
