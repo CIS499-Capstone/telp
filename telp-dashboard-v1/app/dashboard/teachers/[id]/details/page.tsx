@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <Form teacher={teacher}/>
         <div className="rounded-md bg-gray-50 p-4 md:p-6">
           Schedule
-          <Table id={teacher.userid} />
+          <Table id={teacher.id} />
         </div>
       </main>
     )

@@ -88,7 +88,7 @@ export type State = {
 
 export async function registerTeacher(prevState: State, formData: FormData) {
   const validatedFields = RegisterTeacher.safeParse({
-    userid: formData.get('id'),
+    id: formData.get('id'),
     role: 'teacher',
     name: formData.get('name'),
     email: formData.get('email') + '@school.edu',
@@ -133,7 +133,7 @@ export async function registerTeacher(prevState: State, formData: FormData) {
   console.log(deviceid, id)
   try {
     await sql`
-      INSERT INTO devices (id, userID)
+      INSERT INTO devices (deviceid, userID)
       VALUES (${deviceid}, ${id})
     `;
   } catch (error) {
@@ -227,10 +227,11 @@ export async function updateTeacher(id: string, formData: FormData) {
   try {
     await sql`
         UPDATE devices
-        SET id = ${deviceid}
+        SET deviceid = ${deviceid}
         WHERE userid = ${id}
       `;
   } catch (error) {
+    console.log("Error Device: ", error)
     return { message: 'Database Error: Failed to Update Device Info.' };
   }
  
@@ -273,8 +274,8 @@ export async function deleteTeacher(id: string) {
   try {
     await sql`DELETE FROM incidents WHERE userID = ${id}`;
     await sql`DELETE FROM devices WHERE userid = ${id}`;
-    await sql`DELETE FROM authinfo WHERE users.id = ${id} AND users.email = authInfo.email`;
-    await sql`DELETE FROM users AS user WHERE user.id = ${id}`;
+    await sql`DELETE FROM authinfo USING users WHERE users.id = ${id} AND users.email = authInfo.email`;
+    await sql`DELETE FROM users AS user WHERE user.id = ${Number(id)}`;
     revalidatePath('/dashboard/teachers');
     redirect('/dashboard/teachers');
     return { message: 'Deleted teacher.' };
@@ -288,8 +289,8 @@ export async function deleteTeacher(id: string) {
 export async function deleteAdmin(id: string) {
   console.log("Deleting ID: " + Number(id));
   try {
-    await sql`DELETE FROM authinfo WHERE users.id = ${id} AND users.email = authInfo.email`;
-    await sql`DELETE FROM users AS user WHERE user.id = ${id}`;
+    await sql`DELETE FROM authinfo USING users WHERE users.id = ${id} AND users.email = authInfo.email`;
+    await sql`DELETE FROM users WHERE users.id = ${Number(id)}`;
     revalidatePath('/dashboard/admins');
     redirect('/dashboard/admins');
     return { message: 'Deleted Admin.' };

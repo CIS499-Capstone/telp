@@ -77,7 +77,7 @@ export default function ViewTeacherForm({
             ID Number: 
           </label>
           <div className="relative">
-            {teacher.userid}
+            {teacher.id}
           </div>
         </div>
 
@@ -87,12 +87,12 @@ export default function ViewTeacherForm({
             Device Number: 
           </label>
           <div className="relative">
-            {teacher.id}
+            {teacher.deviceid}
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-4">
-          <UpdateTeacher id={teacher.userid} />
-          <DeleteTeacher id={teacher.userid} /> 
+          <UpdateTeacher id={teacher.id} />
+          <DeleteTeacher id={teacher.id} /> 
         </div>
       </div>
     </div>

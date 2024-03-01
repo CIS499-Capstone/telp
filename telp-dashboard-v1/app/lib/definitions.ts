@@ -33,12 +33,12 @@ export type Incidents ={
 // -----------------------------------------------------------------------------------------------------------------
 
 export type UsersTable = {
-  userid: string;
+  id: string;
   role: 'teacher' | 'admin';
   name: string;
   email: string;
   image_url: string;
-  id: string;
+  deviceid: string;
 };
 
 // export type CustomerField = {
@@ -47,13 +47,13 @@ export type UsersTable = {
 // };
 
 export type TeacherForm = {
-  userid: string;
+  id: string;
   role: 'teacher' | 'admin';
   name: string;
   email: string;
   password: string;
   image_url: string;
-  id: string;
+  deviceid: string;
 };
 
 export type IncidentForm = {

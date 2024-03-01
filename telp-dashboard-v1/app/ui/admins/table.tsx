@@ -39,7 +39,7 @@ export default async function AdminsTable({
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div className="flex justify-end gap-2">
-                    <ViewAdmin id={admin.userid} />
+                    <ViewAdmin id={admin.id} />
                   </div>
                 </div>
               </div>

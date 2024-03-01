@@ -18,7 +18,7 @@ export default async function TeachersTable({
           <div className="md:hidden">
             {teachers?.map((teacher) => (
               <div
-                key={teacher.userid}
+                key={teacher.id}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
@@ -39,7 +39,7 @@ export default async function TeachersTable({
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div className="flex justify-end gap-2">
-                    <ViewTeacher id={teacher.userid} />
+                    <ViewTeacher id={teacher.id} />
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@ export default async function TeachersTable({
             <tbody className="bg-white">
               {teachers?.map((teacher) => (
                 <tr
-                  key={teacher.userid}
+                  key={teacher.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
@@ -86,7 +86,7 @@ export default async function TeachersTable({
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {teacher.userid}
+                    {teacher.id}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {teacher.name}
@@ -95,11 +95,11 @@ export default async function TeachersTable({
                     {teacher.email}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {teacher.id}
+                    {teacher.deviceid}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <ViewTeacher id={teacher.userid} />
+                      <ViewTeacher id={teacher.id} />
                     </div>
                   </td>
                 </tr>
