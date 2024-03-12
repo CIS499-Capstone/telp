@@ -56,7 +56,7 @@ async function seedAuthInfo(client) {
     const createAuthTable = await client.sql`
       CREATE TABLE IF NOT EXISTS authInfo (
         email TEXT NOT NULL UNIQUE,
-        FOREIGN KEY (email) REFERENCES users(email),
+        FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE,
         password TEXT NOT NULL
       );
     `;

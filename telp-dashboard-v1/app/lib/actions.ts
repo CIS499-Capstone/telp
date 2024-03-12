@@ -272,10 +272,11 @@ export async function updateAdmin(id: string, formData: FormData) {
 export async function deleteTeacher(id: string) {
   console.log("Deleting ID: " + Number(id));
   try {
+    await sql`DELETE FROM schedule WHERE userID = ${id}`;
     await sql`DELETE FROM incidents WHERE userID = ${id}`;
     await sql`DELETE FROM devices WHERE userid = ${id}`;
     await sql`DELETE FROM authinfo USING users WHERE users.id = ${id} AND users.email = authInfo.email`;
-    await sql`DELETE FROM users AS user WHERE user.id = ${Number(id)}`;
+    await sql`DELETE FROM users WHERE users.id = ${Number(id)}`;
     revalidatePath('/dashboard/teachers');
     redirect('/dashboard/teachers');
     return { message: 'Deleted teacher.' };
