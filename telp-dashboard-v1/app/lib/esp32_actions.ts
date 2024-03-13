@@ -3,15 +3,6 @@ import { comment } from 'postcss';
 
 export async function fetchEmpData(id: number){
     try {
-        // const query = sql`
-        //   SELECT name
-        //   FROM users
-        //   WHERE id = (
-        //   SELECT
-        //     userID
-        //   FROM devices
-        //   WHERE ${id} = id) 
-        // `;
         const dt = new Date();
         // dt.setHours(9,15);
         const dayOfWeek = getDayOfWeek(dt);
@@ -90,4 +81,18 @@ function getTimeSlot(dt: Date){
     }else{
         return "2:30";
     }
+}
+export async function addIncident(id:number){
+    const dt = new Date().toISOString().replace("T", " ").replace('\"','\'');
+    const query = sql`
+    INSERT INTO incidents (userID, time)
+VALUES (
+    (SELECT userID
+    FROM devices
+    WHERE deviceID = ${id}),
+    ${dt}
+);`
+    
+    
+    const result = await query;
 }
