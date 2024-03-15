@@ -1,4 +1,5 @@
 import { fetchScheduleById } from '@/app/lib/data';
+import { UpdateSchedule } from './buttons';
 
 export default async function ScheduleTable({
   id,
@@ -147,6 +148,9 @@ export default async function ScheduleTable({
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="mt-6 flex justify-end gap-4">
+          <UpdateSchedule id={id} /> 
         </div>
       </div>
     </div>

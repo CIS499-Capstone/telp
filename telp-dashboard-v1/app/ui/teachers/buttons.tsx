@@ -48,3 +48,14 @@ export function DeleteTeacher({ id }: { id: string }) {
     </form>
   );
 }
+
+export function UpdateSchedule({ id }: { id: string }) {
+  return (
+    <Link
+      href={`/dashboard/teachers/${id}/details/edit-schedule`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <PencilIcon className="w-5" />
+    </Link>
+  );
+}
