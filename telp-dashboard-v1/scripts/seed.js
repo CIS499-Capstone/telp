@@ -147,8 +147,8 @@ async function seedIncidents(client) {
     const insertedIncidents = await Promise.all(
       incidents.map(
         (incident) => client.sql`
-        INSERT INTO incidents (incidentId, userID, comment, time, student_id)
-        VALUES (${incident.incidentId}, ${incident.userId}, ${incident.comment}, ${incident.time}, ${incident.studentId})
+        INSERT INTO incidents (userID, comment, time, student_id)
+        VALUES (${incident.userId}, ${incident.comment}, ${incident.time}, ${incident.studentId})
         ON CONFLICT (incidentId) DO NOTHING;
       `,
       ),
