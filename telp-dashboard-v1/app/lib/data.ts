@@ -277,7 +277,15 @@ export async function fetchScheduleById(id: string) {
     const data = await sql<ScheduleForm>`
       SELECT *
       FROM schedule
-      WHERE userid = ${id};
+      WHERE userid = ${id}
+      ORDER BY
+        CASE
+          WHEN day = 'Monday' THEN 1
+          WHEN day = 'Tuesday' THEN 2
+          WHEN day = 'Wednesday' THEN 3
+          WHEN day = 'Thursday' THEN 4
+          ELSE 5
+        END
     `;
     
     return data.rows;

@@ -1,9 +1,10 @@
-import Form from '@/app/ui/teachers/schedule-form';
+import Form from '@/app/ui/schedule/edit-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchTeacherById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getTeacher } from '@/app/dashboard/page';
+import { fetchScheduleById } from '@/app/lib/data';
  
 export const metadata: Metadata = {
   title: 'Edit Schedule',
@@ -13,6 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const user = await getTeacher();
   const id = params.id;
   const teacher = await fetchTeacherById(id);
+  const schedule = await fetchScheduleById(id);
   
   if (!teacher) {
     notFound();
@@ -37,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             },
           ]}
         />
-        <Form teacher={teacher}/>
+        <Form teacher={teacher} schedule1={schedule[0]} schedule2={schedule[1]} schedule3={schedule[2]} schedule4={schedule[3]} schedule5={schedule[4]} />
       </main>
     )
   );

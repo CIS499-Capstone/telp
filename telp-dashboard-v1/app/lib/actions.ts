@@ -64,6 +64,239 @@ const IncidentFormSchema = z.object({
   }),
 });
 
+const ScheduleFormSchema = z.object({
+  userid: z.string({
+    invalid_type_error: "Please enter an ID number.",
+  }),
+  day: z.string({
+    invalid_type_error: "Please enter a day.",
+  }),
+  m730: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m800: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m830: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m900: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m930: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m1000: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m1030: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m1100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m1130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m1200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m1230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  m230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t730: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t800: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t830: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t900: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t930: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t1000: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t1030: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t1100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t1130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t1200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t1230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  t230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w730: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w800: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w830: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w900: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w930: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w1000: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w1030: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w1100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w1130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w1200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w1230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  w230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r730: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r800: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r830: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r900: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r930: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r1000: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r1030: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r1100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r1130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r1200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r1230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  r230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f730: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f800: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f830: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f900: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f930: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f1000: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f1030: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f1100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f1130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f1200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f1230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f100: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f130: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f200: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+  f230: z.string({
+    invalid_type_error: "Please enter a room number.",
+  }),
+})
  
 const RegisterTeacher = FormSchema;
 const RegisterAdmin = FormSchema.omit({deviceid: true});
@@ -72,6 +305,7 @@ const UpdateAdmin = FormSchema.omit({id: true, role: true, email: true, password
 
 const UpdateIncident = IncidentFormSchema.pick({ comment: true });
 
+const UpdateSchedule = ScheduleFormSchema.omit({userid: true, day: true});
 
 export type State = {
   errors?: {
@@ -139,6 +373,61 @@ export async function registerTeacher(prevState: State, formData: FormData) {
   } catch (error) {
     return {
       message: 'Database Error: Failed to Create Teacher Device Info.',
+    };
+  }
+
+  try {
+    await sql`
+      INSERT INTO schedule (userID, day, "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30")
+      VALUES (${id}, 'Monday', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Monday Schedule Info.',
+    };
+  }
+
+  try {
+    await sql`
+      INSERT INTO schedule (userID, day, "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30")
+      VALUES (${id}, 'Tuesday', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Tuesday Schedule Info.',
+    };
+  }
+
+  try {
+    await sql`
+      INSERT INTO schedule (userID, day, "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30")
+      VALUES (${id}, 'Wednesday', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Wednesday Schedule Info.',
+    };
+  }
+
+  try {
+    await sql`
+      INSERT INTO schedule (userID, day, "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30")
+      VALUES (${id}, 'Thursday', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Thursday Schedule Info.',
+    };
+  }
+
+  try {
+    await sql`
+      INSERT INTO schedule (userID, day, "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30")
+      VALUES (${id}, 'Friday', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+    `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Create Friday Schedule Info.',
     };
   }
 
@@ -325,4 +614,219 @@ export async function updateIncident(id: string, formData: FormData) {
 
   // Redirect the user to the appropriate dashboard
   redirect('/dashboard');
+}
+
+export async function updateSchedule(id: string, formData: FormData) {
+  console.log("ID: ", id);
+  const { 
+    m730, m800, m830, m900, m930, m1000, m1030, m1100, m1130, m1200, m1230, m100, m130, m200, m230,
+    t730, t800, t830, t900, t930, t1000, t1030, t1100, t1130, t1200, t1230, t100, t130, t200, t230,
+    w730, w800, w830, w900, w930, w1000, w1030, w1100, w1130, w1200, w1230, w100, w130, w200, w230,
+    r730, r800, r830, r900, r930, r1000, r1030, r1100, r1130, r1200, r1230, r100, r130, r200, r230,
+    f730, f800, f830, f900, f930, f1000, f1030, f1100, f1130, f1200, f1230, f100, f130, f200, f230
+  } = UpdateSchedule.parse({
+    m730: formData.get('m730'),
+    m800: formData.get('m800'),
+    m830: formData.get('m830'),
+    m900: formData.get('m900'),
+    m930: formData.get('m930'),
+    m1000: formData.get('m1000'),
+    m1030: formData.get('m1030'),
+    m1100: formData.get('m1100'),
+    m1130: formData.get('m1130'),
+    m1200: formData.get('m1200'),
+    m1230: formData.get('m1230'),
+    m100: formData.get('m100'),
+    m130: formData.get('m130'),
+    m200: formData.get('m200'),
+    m230: formData.get('m230'),
+    t730: formData.get('t730'),
+    t800: formData.get('t800'),
+    t830: formData.get('t830'),
+    t900: formData.get('t900'),
+    t930: formData.get('t930'),
+    t1000: formData.get('t1000'),
+    t1030: formData.get('t1030'),
+    t1100: formData.get('t1100'),
+    t1130: formData.get('t1130'),
+    t1200: formData.get('t1200'),
+    t1230: formData.get('t1230'),
+    t100: formData.get('t100'),
+    t130: formData.get('t130'),
+    t200: formData.get('t200'),
+    t230: formData.get('t230'),
+    w730: formData.get('w730'),
+    w800: formData.get('w800'),
+    w830: formData.get('w830'),
+    w900: formData.get('w900'),
+    w930: formData.get('w930'),
+    w1000: formData.get('w1000'),
+    w1030: formData.get('w1030'),
+    w1100: formData.get('w1100'),
+    w1130: formData.get('w1130'),
+    w1200: formData.get('w1200'),
+    w1230: formData.get('w1230'),
+    w100: formData.get('w100'),
+    w130: formData.get('w130'),
+    w200: formData.get('w200'),
+    w230: formData.get('w230'),
+    r730: formData.get('r730'),
+    r800: formData.get('r800'),
+    r830: formData.get('r830'),
+    r900: formData.get('r900'),
+    r930: formData.get('r930'),
+    r1000: formData.get('r1000'),
+    r1030: formData.get('r1030'),
+    r1100: formData.get('r1100'),
+    r1130: formData.get('r1130'),
+    r1200: formData.get('r1200'),
+    r1230: formData.get('r1230'),
+    r100: formData.get('r100'),
+    r130: formData.get('r130'),
+    r200: formData.get('r200'),
+    r230: formData.get('r230'),
+    f730: formData.get('f730'),
+    f800: formData.get('f800'),
+    f830: formData.get('f830'),
+    f900: formData.get('f900'),
+    f930: formData.get('f930'),
+    f1000: formData.get('f1000'),
+    f1030: formData.get('f1030'),
+    f1100: formData.get('f1100'),
+    f1130: formData.get('f1130'),
+    f1200: formData.get('f1200'),
+    f1230: formData.get('f1230'),
+    f100: formData.get('f100'),
+    f130: formData.get('f130'),
+    f200: formData.get('f200'),
+    f230: formData.get('f230'),
+  });
+
+  try {
+    await sql`
+        UPDATE schedule
+        SET "7:30" = ${m730},
+            "8:00" = ${m800},
+            "8:30" = ${m830},
+            "9:00" = ${m900},
+            "9:30" = ${m930},
+            "10:00" = ${m1000},
+            "10:30" = ${m1030},
+            "11:00" = ${m1100},
+            "11:30" = ${m1130},
+            "12:00" = ${m1200},
+            "12:30" = ${m1230},
+            "1:00" = ${m100},
+            "1:30" = ${m130},
+            "2:00" = ${m200},
+            "2:30" = ${m230}
+        WHERE userid = ${id} AND day = 'Monday'
+      `;
+  } catch (error) {
+    console.log("M:", error);
+    return { message: 'Database Error: Failed to Update Monday Schedule Info.' };
+  }
+ 
+  try {
+    await sql`
+        UPDATE schedule
+        SET "7:30" = ${t730},
+            "8:00" = ${t800},
+            "8:30" = ${t830},
+            "9:00" = ${t900},
+            "9:30" = ${t930},
+            "10:00" = ${t1000},
+            "10:30" = ${t1030},
+            "11:00" = ${t1100},
+            "11:30" = ${t1130},
+            "12:00" = ${t1200},
+            "12:30" = ${t1230},
+            "1:00" = ${t100},
+            "1:30" = ${t130},
+            "2:00" = ${t200},
+            "2:30" = ${t230}
+        WHERE userid = ${id} AND day = 'Tuesday'
+      `;
+  } catch (error) {
+    console.log("T:", error);
+    return { message: 'Database Error: Failed to Update Tuseday Schedule Info.' };
+  }
+ 
+  try {
+    await sql`
+        UPDATE schedule
+        SET "7:30" = ${w730},
+            "8:00" = ${w800},
+            "8:30" = ${w830},
+            "9:00" = ${w900},
+            "9:30" = ${w930},
+            "10:00" = ${w1000},
+            "10:30" = ${w1030},
+            "11:00" = ${w1100},
+            "11:30" = ${w1130},
+            "12:00" = ${w1200},
+            "12:30" = ${w1230},
+            "1:00" = ${w100},
+            "1:30" = ${w130},
+            "2:00" = ${w200},
+            "2:30" = ${w230}
+        WHERE userid = ${id} AND day = 'Wednesday'
+      `;
+  } catch (error) {
+    console.log("W:", error);
+    return { message: 'Database Error: Failed to Update Wednesday Schedule Info.' };
+  }
+ 
+  try {
+    await sql`
+        UPDATE schedule
+        SET "7:30" = ${r730},
+            "8:00" = ${r800},
+            "8:30" = ${r830},
+            "9:00" = ${r900},
+            "9:30" = ${r930},
+            "10:00" = ${r1000},
+            "10:30" = ${r1030},
+            "11:00" = ${r1100},
+            "11:30" = ${r1130},
+            "12:00" = ${r1200},
+            "12:30" = ${r1230},
+            "1:00" = ${r100},
+            "1:30" = ${r130},
+            "2:00" = ${r200},
+            "2:30" = ${r230}
+        WHERE userid = ${id} AND day = 'Thursday'
+      `;
+  } catch (error) {
+    console.log("R:", error);
+    return { message: 'Database Error: Failed to Update Thursday Schedule Info.' };
+  }
+ 
+  try {
+    await sql`
+        UPDATE schedule
+        SET "7:30" = ${f730},
+            "8:00" = ${f800},
+            "8:30" = ${f830},
+            "9:00" = ${f900},
+            "9:30" = ${f930},
+            "10:00" = ${f1000},
+            "10:30" = ${f1030},
+            "11:00" = ${f1100},
+            "11:30" = ${f1130},
+            "12:00" = ${f1200},
+            "12:30" = ${f1230},
+            "1:00" = ${f100},
+            "1:30" = ${f130},
+            "2:00" = ${f200},
+            "2:30" = ${f230}
+        WHERE userid = ${id} AND day = 'Friday'
+      `;
+  } catch (error) {
+    console.log("F:", error);
+    return { message: 'Database Error: Failed to Update Friday Schedule Info.' };
+  }
+ 
+  revalidatePath('/dashboard/teachers');
+  redirect('/dashboard/teachers');
 }
