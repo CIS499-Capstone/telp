@@ -8,6 +8,7 @@ export type Users = {
   name: string;
   email: string;
   image_url: string;
+  phone: string;
 };
 
 export type AuthInfo = {
@@ -41,10 +42,6 @@ export type UsersTable = {
   deviceid: string;
 };
 
-// export type CustomerField = {
-//   id: string;
-//   name: string;
-// };
 
 export type TeacherForm = {
   id: string;
@@ -61,6 +58,7 @@ export type IncidentForm = {
   name: string;
   comment: string;
   time: string;
+  student_id: string;
 };
 
 export type AdminForm = {

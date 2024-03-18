@@ -43,11 +43,20 @@ export default async function TeacherDashboard({ id }: { id: string }) {
                 className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
               >
                 <td className="whitespace-nowrap px-3 py-3">
-                  {incident.studentId}
+                  {incident.studentId !== null &&
+                  incident.studentId !== undefined
+                    ? incident.studentId
+                    : 'xxxx'}
                 </td>
-                <td className="whitespace-nowrap px-3 py-3">{incident.name}</td>
                 <td className="whitespace-nowrap px-3 py-3">
-                  {incident.comment}
+                  {incident.name !== null && incident.name !== undefined
+                    ? incident.name
+                    : 'xxxx xxxx'}
+                </td>
+                <td className="whitespace-nowrap px-3 py-3">
+                  {incident.comment !== null && incident.comment !== undefined
+                    ? incident.comment
+                    : '_ _ _ _  _ _ _ _'}
                 </td>
                 <td className="whitespace-nowrap px-3 py-3">
                   {new Date(incident.time).toLocaleString()}

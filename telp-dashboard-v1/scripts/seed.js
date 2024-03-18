@@ -19,7 +19,8 @@ async function seedUsers(client) {
         role VARCHAR(50) CHECK (role IN ('teacher', 'admin')),
         name VARCHAR(255) NOT NULL,
         email TEXT NOT NULL UNIQUE,
-        image_url TEXT
+        image_url TEXT,
+        phone TEXT DEFAULT NULL
       );
     `;
 
@@ -29,8 +30,8 @@ async function seedUsers(client) {
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
         return client.query(
-          'INSERT INTO users (id, role, name, email, image_url) VALUES ($1, $2, $3, $4, $5) ON CONFLICT (id) DO NOTHING RETURNING *',
-          [user.id, user.role, user.name, user.email, user.image_url]
+          'INSERT INTO users (id, role, name, email, image_url, phone) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT (id) DO NOTHING RETURNING *',
+          [user.id, user.role, user.name, user.email, user.image_url, user.phone]
         );
       }),
     );
@@ -137,7 +138,7 @@ async function seedIncidents(client) {
         userID INT REFERENCES users(id),
         comment TEXT DEFAULT NULL,
         time TIMESTAMP,
-        student_id INT REFERENCES students(student_id)
+        student_id INT REFERENCES students(student_id) DEFAULT NULL
       );
     `;
 
