@@ -85,7 +85,7 @@ export async function fetchTeacherIncidents(id: string) {
         students.name
       FROM
         incidents
-      INNER JOIN
+      LEFT JOIN
         students ON incidents.student_id = students.student_id
       WHERE
         incidents.userId = ${id}
@@ -302,10 +302,12 @@ export async function fetchIncidentById(id: string) {
     console.log("*****************************");
     console.log("id is: ",id);
     const data = await sql<IncidentForm>`
-      SELECT *
+      SELECT 
+        incidents.*
       FROM incidents
       WHERE incidents.incidentid = ${id};
     `;
+    console.log("specific Incident: ",data.rows[0])
 
     const incident = data.rows.map((incident) => ({
       ...incident,

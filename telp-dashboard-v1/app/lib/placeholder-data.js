@@ -8,6 +8,7 @@ const users = [
     name: 'Delba de Oliveira',
     email: 'delba.oliveira@school.edu',
     image_url: '/users/delba-de-oliveira.png',
+    phone: '+18033894070',
   },
   {
     id: 1001,
@@ -15,6 +16,7 @@ const users = [
     name: 'Lee Robinson',
     email: 'lee.robinson@school.edu',
     image_url: '/users/lee-robinson.png',
+    phone: '',
   },
   {
     id: 1002,
@@ -22,6 +24,7 @@ const users = [
     name: 'Hector Simpson',
     email: 'hector.simpson@school.edu',
     image_url: '/users/hector-simpson.png',
+    phone: '',
   },
   {
     id: 1003,
@@ -29,6 +32,7 @@ const users = [
     name: 'Steven Tey',
     email: 'steven.tey@school.edu',
     image_url: '/users/steven-tey.png',
+    phone: '',
   },
   {
     id: 1004,
@@ -36,6 +40,7 @@ const users = [
     name: 'Steph Dietz',
     email: 'steph.dietz@school.edu',
     image_url: '/users/steph-dietz.png',
+    phone: '',
   },
   {
     id: 1005,
@@ -43,6 +48,7 @@ const users = [
     name: 'Michael Novotny',
     email: 'michael.novotny@school.edu',
     image_url: '/users/michael-novotny.png',
+    phone: '',
   },
 ];
 
