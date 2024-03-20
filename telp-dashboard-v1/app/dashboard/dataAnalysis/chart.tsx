@@ -1,16 +1,17 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import { ChartType } from 'chart.js';
+import { ChartType, Colors } from 'chart.js';
 import { fetchIncidentsByTeacher } from '@/app/lib/data_analysis';
 
+Chart.register(Colors);
 interface ChartProps {
     data: {
       labels: string[];
       datasets: {
         label: string;
         data: number[];
-        backgroundColor: string[];
+       
       }[];
     };
   }
@@ -38,7 +39,18 @@ const ChartComponent: React.FC <ChartProps> = ({data}) => {
     chartInstanceRef.current = new Chart(ctx, {
       type: 'polarArea' as ChartType,
       data: data,
-      options:{}
+      options:{
+        plugins:{
+            colors:{
+                enabled: true
+            },
+            title: {
+                display: true,
+                text: 'Incidents by Teacher'
+            }
+        }
+      },
+      
     });
 
     // Cleanup function to destroy the chart instance on unmount
