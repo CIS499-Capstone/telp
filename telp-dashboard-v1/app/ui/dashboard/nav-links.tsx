@@ -4,6 +4,7 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  ChartPieIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -19,6 +20,7 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: 'Teachers', href: '/dashboard/teachers', icon: UserGroupIcon },
+  {name:'Data Analysis', href:'/dashboard/dataAnalysis', icon: ChartPieIcon}
 ];
 
 export default function NavLinks() {
