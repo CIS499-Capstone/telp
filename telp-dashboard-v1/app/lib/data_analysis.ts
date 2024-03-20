@@ -17,7 +17,7 @@ export async function fetchIncidentsByTeacher() {
        
         
         const names: string [] = result.rows.map(item => item.name);
-        // result.rows.map(item => console.log(typeof(item.name)));
+        console.log(result.rows)
         const incidentCounts: number[] = result.rows.map(item => parseInt(item.incident_count));
         // console.log(typeof(names));
        
