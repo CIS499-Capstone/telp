@@ -191,6 +191,76 @@ export async function fetchFilteredAdmins(
   }
 }
 
+export async function fetchFilteredIncidents(
+  query: string,
+  currentPage: number,
+) {
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const output = sql`
+      SELECT
+        incidents.*,
+        students.name
+      FROM
+        incidents
+      LEFT JOIN
+        students ON incidents.student_id = students.student_id
+      WHERE
+        (students.name ILIKE ${`%${query}%`} OR incidents.comment ILIKE ${`%${query}%`})
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    const result = await output;
+
+    const incidents = result.rows.map((row) => ({
+      incidentid: row.incidentid as string,
+      comment: row.comment as string,
+      time: row.time as string,
+      studentId: row.student_id as string,
+      name: row.name as string,
+    }));
+
+    return incidents;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch teacher incidents data.');
+  }
+}
+
+export async function fetchFilteredStudents(
+  query: string,
+  currentPage: number,
+) {
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const output = sql`
+      SELECT *
+      FROM students
+      WHERE students.name ILIKE ${`%${query}%`}
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    const result = await output;
+
+    const incidents = result.rows.map((row) => ({
+      incidentid: row.incidentid as string,
+      comment: row.comment as string,
+      time: row.time as string,
+      studentId: row.student_id as string,
+      name: row.name as string,
+    }));
+
+    return incidents;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch teacher incidents data.');
+  }
+}
+
 export async function fetchTeachersPages(query: string) {
   noStore();
   try {
@@ -202,6 +272,7 @@ export async function fetchTeachersPages(query: string) {
       users.role = 'teacher'
   `;
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    console.log("Pages:", totalPages);
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
@@ -219,10 +290,47 @@ export async function fetchAdminsPages(query: string) {
       users.role = 'admin'
   `;
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of admins.');
+  }
+}
+
+export async function fetchIncidentsPages(query: string) {
+  noStore();
+  try {
+    const count = await sql`
+    SELECT
+      incidents.*,
+      students.name
+    FROM
+      incidents
+    LEFT JOIN
+      students ON incidents.student_id = students.student_id
+  `;
+    const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of incidents.');
+  }
+}
+
+export async function fetchStudentsPages(query: string) {
+  noStore();
+  try {
+    const count = await sql`
+    SELECT *
+    FROM students
+  `;
+    const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
+    console.log("Rows:", count.rowCount);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of students.');
   }
 }
 

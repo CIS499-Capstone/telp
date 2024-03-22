@@ -1,10 +1,10 @@
 import Pagination from '@/app/ui/pagination';
 import Search from '@/app/ui/search';
-import Table from '@/app/ui/teachers/table';
+import Table from '@/app/ui/students/table';
 import { RegisterTeacher } from '@/app/ui/teachers/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
-import { fetchTeachersPages } from '@/app/lib/data';
+import { fetchStudentsPages } from '@/app/lib/data';
 import { Metadata } from 'next';
 import { getTeacher } from '@/app/dashboard/page';
 
@@ -25,7 +25,7 @@ export default async function Page({
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
 
-  const totalPages = await fetchTeachersPages(query);
+  const totalPages = await fetchStudentsPages(query);
 
   return (
     <div className="w-full">
@@ -36,11 +36,11 @@ export default async function Page({
       ) : (
         <div className="w-full">
           <div className="flex w-full items-center justify-between">
-            <h1 className={`${lusitana.className} text-2xl`}>Teachers List</h1>
+            <h1 className={`${lusitana.className} text-2xl`}>Students List</h1>
           </div>
           <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-            <Search placeholder="Search teachers..." />
-            <RegisterTeacher />
+            <Search placeholder="Search students..." />
+            {/* <RegisterTeacher /> Input Register Student button here once components and pages are made */}
           </div>
           <Suspense key={query + currentPage}>
             <Table query={query} currentPage={currentPage} />
