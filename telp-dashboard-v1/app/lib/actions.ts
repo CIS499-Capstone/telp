@@ -59,6 +59,9 @@ const IncidentFormSchema = z.object({
   comment: z.string({
     invalid_type_error: "Please enter a comment for the incident.",
   }),
+    student_id: z.string({
+    invalid_type_error: "Please enter a student_id for the incident.",
+  }),
   time: z.string({
     invalid_type_error: "Please enter a valid timestamp for the incident.",
   }),
@@ -303,7 +306,7 @@ const RegisterAdmin = FormSchema.omit({deviceid: true});
 const UpdateTeacher = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true})
 const UpdateAdmin = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true, deviceid: true})
 
-const UpdateIncident = IncidentFormSchema.pick({ comment: true });
+const UpdateIncident = IncidentFormSchema.pick({ comment: true, student_id: true });
 
 const UpdateSchedule = ScheduleFormSchema.omit({userid: true, day: true});
 
@@ -575,7 +578,6 @@ export async function deleteTeacher(id: string) {
   }
 }
 
-
 export async function deleteAdmin(id: string) {
   console.log("Deleting ID: " + Number(id));
   try {
@@ -591,18 +593,13 @@ export async function deleteAdmin(id: string) {
 }
 
 export async function updateIncident(id: string, formData: FormData) {
-  console.log("Incident ID: ", id);
-  
-  // Parse the relevant fields from the form data using the UpdateIncident schema
-  const { comment } = UpdateIncident.parse({
-    comment: formData.get('comment'),
-  });
 
   try {
-    // Execute the SQL query to update the incident in the database
+    const { comment, student_id } = UpdateIncident.parse(formDataToObject(formData));
     await sql`
       UPDATE incidents
-      SET comment = ${comment}
+      SET comment = ${comment},
+        student_id = ${student_id}
       WHERE incidentid = ${id}
     `;
   } catch (error) {
@@ -614,6 +611,14 @@ export async function updateIncident(id: string, formData: FormData) {
 
   // Redirect the user to the appropriate dashboard
   redirect('/dashboard');
+}
+// Helper function to convert FormData to plain object
+function formDataToObject(formData: FormData): Record<string, string> {
+  const object: Record<string, string> = {};
+  formData.forEach((value, key) => {
+    object[key] = value.toString();
+  });
+  return object;
 }
 
 export async function updateSchedule(id: string, formData: FormData) {

@@ -38,6 +38,27 @@ export async function fetchCardData() {
   }
 }
 
+export async function fetchStudents(){
+  try{
+    const query = sql`
+      SELECT
+        *
+      FROM
+        students
+    `;
+    const result = await query;
+    const studentsData = result.rows.map((row) => ({
+      student_id: row.student_id as string,
+      name: row.name as string,
+    }));
+
+    return studentsData;
+  }catch(error){
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch comment data.');
+  }
+}
+
 
 export async function fetchCommentsData() {
   try {
@@ -406,16 +427,12 @@ export async function fetchScheduleById(id: string) {
 export async function fetchIncidentById(id: string) {
   noStore();
   try {
-    console.log("prior testing")
-    console.log("*****************************");
-    console.log("id is: ",id);
     const data = await sql<IncidentForm>`
       SELECT 
         incidents.*
       FROM incidents
       WHERE incidents.incidentid = ${id};
     `;
-    console.log("specific Incident: ",data.rows[0])
 
     const incident = data.rows.map((incident) => ({
       ...incident,
