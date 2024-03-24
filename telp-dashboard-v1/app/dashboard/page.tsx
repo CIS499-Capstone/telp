@@ -11,9 +11,9 @@ import {
 } from '@/app/ui/skeletons';
 
 export async function getTeacher() {
-    let session = await auth();
-    let userEmail = session?.user?.email ?? '';
-    let teacher = await fetchUserFromAuthInfo(userEmail);
+  let session = await auth();
+  let userEmail = session?.user?.email ?? '';
+  let teacher = await fetchUserFromAuthInfo(userEmail);
   return teacher;
 }
 
@@ -26,7 +26,7 @@ export default async function Page() {
     numberOfComments,
     numberOfPendingComments,
   } = await fetchCardData();
-  console.log('teacher authed is: ', teacher);
+  //console.log('teacher authed is: ', teacher);
 
   return (
     <main>
