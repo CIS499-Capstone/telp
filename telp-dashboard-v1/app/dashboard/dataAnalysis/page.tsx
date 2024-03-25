@@ -11,7 +11,7 @@ export default async function Page() {
     <div className="flex">
     
     <main >
-          <Navbar />
+          {/* <Navbar /> */}
           <Charts/>
     </main>
     </div>

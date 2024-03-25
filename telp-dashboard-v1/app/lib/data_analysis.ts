@@ -13,13 +13,13 @@ export async function fetchIncidentsByTeacher() {
         GROUP BY u.name;
         
         `;
-        console.log("query executed");
+        // console.log("query executed");
         const result = await query;
 
 
 
         const names: string[] = result.rows.map(item => item.name);
-        console.log(result.rows)
+        // console.log(result.rows)
         const incidentCounts: number[] = result.rows.map(item => parseInt(item.incident_count));
         // console.log(typeof(names));
 
@@ -43,11 +43,15 @@ ORDER BY hour_of_day;
 
         `;
         const result = await query;
-        console.log(result.rows);
-        const mappedResults: any[] = result.rows.map((item) => item);
-        return mappedResults;
+        // console.log(result.rows);
+        const times: string[] = result.rows.map(item => item.hour_of_day);
+        // console.log(times);
+        const incidentCounts: number[] = result.rows.map(item => parseInt(item.incident_count));
+        console.log(incidentCounts);
+        return [times,incidentCounts];
     }catch {
         console.log("error");
+        return [[],[]];
     }
     
 }

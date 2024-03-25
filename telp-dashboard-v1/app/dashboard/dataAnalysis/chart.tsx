@@ -1,7 +1,7 @@
 import { fetchCardData } from "@/app/lib/data";
 import { unstable_noStore as noStore } from 'next/cache';
 import { Card } from "@/app/ui/dashboard/cards";
-import AreaChartPlot from "./AreaChartPlot";
+import AreaChart from "./AreaChartPlot";
 import { getIncidentSeries, fetchIncidentsByTeacher } from "@/app/lib/data_analysis";
 import ChartComponent from "./PolarAreaChart";
 export default async function Charts(
@@ -15,6 +15,16 @@ export default async function Charts(
     numberOfPendingComments,
   } = await fetchCardData();
   const timeData = await getIncidentSeries();
+  const lineData = {
+    labels: timeData[0].map(String),
+    datasets: [{
+      label: "Incident Counts over Time",
+      data: timeData[1].map(value => typeof value === 'string' ? parseInt(value) : value),
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }]
+  }
   const pieData = await fetchIncidentsByTeacher();
 
   const chartData =
@@ -64,7 +74,7 @@ export default async function Charts(
 
       <section className="flex ">
         <div className="w-1/2 h-[300px]  rounded" >
-          <AreaChartPlot data={timeData} />
+          <AreaChart data={lineData} />
         </div>
         <div className=" ">
           <ChartComponent data={chartData} />

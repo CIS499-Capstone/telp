@@ -1,29 +1,69 @@
 "use client"
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useEffect, useRef, useState } from 'react';
+import Chart from 'chart.js/auto';
+import { ChartType, Colors } from 'chart.js';
+import { fetchIncidentsByTeacher } from '@/app/lib/data_analysis';
 
-export default function AreaChartPlot({data}:{data:any[] | undefined}) {
+Chart.register(Colors);
+interface ChartProps {
+    data: {
+      labels: string[];
+      datasets: {
+        label: string;
+        data: number[];
+        fill: boolean,
+        borderColor: string,
+        tension: number
+      }[];
+    };
+  }
+
+const AreaChart: React.FC <ChartProps> = ({data}) => {
+  const chartRef = useRef<HTMLCanvasElement | null>(null);
+  const chartInstanceRef = useRef<Chart | null>(null);
+
+  useEffect(() => {
+    if (!chartRef.current) return;
+
+    const ctx = chartRef.current.getContext('2d');
+    if (!ctx) return;
+
+    // Destroy any existing chart instance
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
+    }
+
+    // Create a new chart instance
+    
+    
 
 
-    return (
-        <ResponsiveContainer>
-            <AreaChart width={730} height={250} data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                    </linearGradient>
-                </defs>
-                <XAxis dataKey="hour_of_day" />
-                <YAxis dataKey="incident_count"/>
-                <Tooltip />
-                <Area type="monotone" dataKey="incident_count" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-                {/* <Area type="monotone" dataKey="Samsung" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" /> */}
-            </AreaChart>
-            </ResponsiveContainer>
+    chartInstanceRef.current = new Chart(ctx, {
+      type: 'line' as ChartType,
+      data: data,
+      options:{
+        plugins:{
+            colors:{
+                enabled: true
+            },
+            title: {
+                display: true,
+                text: 'Incidents by Teacher'
+            }
+        }
+      },
       
-    );
-}
+    });
+
+    // Cleanup function to destroy the chart instance on unmount
+    return () => {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+      }
+    };
+  }, []);
+
+  return <canvas ref={chartRef}></canvas>;
+};
+
+export default AreaChart;
