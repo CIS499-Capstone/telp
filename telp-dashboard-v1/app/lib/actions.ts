@@ -59,6 +59,9 @@ const IncidentFormSchema = z.object({
   comment: z.string({
     invalid_type_error: "Please enter a comment for the incident.",
   }),
+    student_id: z.string({
+    invalid_type_error: "Please enter a student_id for the incident.",
+  }),
   time: z.string({
     invalid_type_error: "Please enter a valid timestamp for the incident.",
   }),
@@ -300,10 +303,11 @@ const ScheduleFormSchema = z.object({
  
 const RegisterTeacher = FormSchema;
 const RegisterAdmin = FormSchema.omit({deviceid: true});
+const RegisterStudent = FormSchema.omit({role: true, email: true, password: true, image_url: true, deviceid: true});
 const UpdateTeacher = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true})
 const UpdateAdmin = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true, deviceid: true})
 
-const UpdateIncident = IncidentFormSchema.pick({ comment: true });
+const UpdateIncident = IncidentFormSchema.pick({ comment: true, student_id: true });
 
 const UpdateSchedule = ScheduleFormSchema.omit({userid: true, day: true});
 
@@ -486,6 +490,41 @@ export async function registerAdmin(prevState: State, formData: FormData) {
   redirect('/dashboard/admins');
 }
 
+export async function registerStudent(prevState: State, formData: FormData) {
+  const validatedFields = RegisterStudent.safeParse({
+    id: formData.get('id'),
+    name: formData.get('name'),
+  });
+ 
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Register Admin.',
+    };
+  }
+  
+  // Prepare data for insertion into the database
+  const { id, name } = validatedFields.data;
+  console.log(validatedFields.data);
+
+  try {
+    await sql`
+      INSERT INTO students (student_id, name)
+      VALUES (${id}, ${name})
+    `;
+  } catch (error) {
+    console.log(error);
+    return {
+      message: 'Database Error: Failed to Create Students Info.',
+    };
+  }
+
+  // Revalidate the cache for the students page and redirect the user.
+  revalidatePath('/dashboard/students');
+  redirect('/dashboard/students');
+}
+
 export async function updateTeacher(id: string, formData: FormData) {
   console.log("ID: ", id);
   const { name, deviceid } = UpdateTeacher.parse({
@@ -575,7 +614,6 @@ export async function deleteTeacher(id: string) {
   }
 }
 
-
 export async function deleteAdmin(id: string) {
   console.log("Deleting ID: " + Number(id));
   try {
@@ -591,18 +629,13 @@ export async function deleteAdmin(id: string) {
 }
 
 export async function updateIncident(id: string, formData: FormData) {
-  console.log("Incident ID: ", id);
-  
-  // Parse the relevant fields from the form data using the UpdateIncident schema
-  const { comment } = UpdateIncident.parse({
-    comment: formData.get('comment'),
-  });
 
   try {
-    // Execute the SQL query to update the incident in the database
+    const { comment, student_id } = UpdateIncident.parse(formDataToObject(formData));
     await sql`
       UPDATE incidents
-      SET comment = ${comment}
+      SET comment = ${comment},
+        student_id = ${student_id}
       WHERE incidentid = ${id}
     `;
   } catch (error) {
@@ -614,6 +647,14 @@ export async function updateIncident(id: string, formData: FormData) {
 
   // Redirect the user to the appropriate dashboard
   redirect('/dashboard');
+}
+// Helper function to convert FormData to plain object
+function formDataToObject(formData: FormData): Record<string, string> {
+  const object: Record<string, string> = {};
+  formData.forEach((value, key) => {
+    object[key] = value.toString();
+  });
+  return object;
 }
 
 export async function updateSchedule(id: string, formData: FormData) {

@@ -1,6 +1,5 @@
 import EditIncidentForm from '@/app/ui/incidents/editIncident';
-// import Breadcrumbs from '@/app/ui/teachers/breadcrumbs';
-import { fetchIncidentById } from '@/app/lib/data';
+import { fetchIncidentById, fetchStudents } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
@@ -11,6 +10,7 @@ export const metadata: Metadata = {
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
   const incident = await fetchIncidentById(id);
+  const studentList = await fetchStudents();
 
   if (!incident) {
     notFound();
@@ -18,7 +18,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main>
-      <EditIncidentForm incident={incident} />
+      <EditIncidentForm incident={incident} students={studentList} />
     </main>
   );
 }
