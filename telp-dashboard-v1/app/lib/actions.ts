@@ -303,6 +303,7 @@ const ScheduleFormSchema = z.object({
  
 const RegisterTeacher = FormSchema;
 const RegisterAdmin = FormSchema.omit({deviceid: true});
+const RegisterStudent = FormSchema.omit({role: true, email: true, password: true, image_url: true, deviceid: true});
 const UpdateTeacher = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true})
 const UpdateAdmin = FormSchema.omit({id: true, role: true, email: true, password: true, image_url: true, deviceid: true})
 
@@ -487,6 +488,41 @@ export async function registerAdmin(prevState: State, formData: FormData) {
   // Revalidate the cache for the teachers page and redirect the user.
   revalidatePath('/dashboard/admins');
   redirect('/dashboard/admins');
+}
+
+export async function registerStudent(prevState: State, formData: FormData) {
+  const validatedFields = RegisterStudent.safeParse({
+    id: formData.get('id'),
+    name: formData.get('name'),
+  });
+ 
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Register Admin.',
+    };
+  }
+  
+  // Prepare data for insertion into the database
+  const { id, name } = validatedFields.data;
+  console.log(validatedFields.data);
+
+  try {
+    await sql`
+      INSERT INTO students (student_id, name)
+      VALUES (${id}, ${name})
+    `;
+  } catch (error) {
+    console.log(error);
+    return {
+      message: 'Database Error: Failed to Create Students Info.',
+    };
+  }
+
+  // Revalidate the cache for the students page and redirect the user.
+  revalidatePath('/dashboard/students');
+  redirect('/dashboard/students');
 }
 
 export async function updateTeacher(id: string, formData: FormData) {

@@ -1,7 +1,7 @@
 import Pagination from '@/app/ui/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/students/table';
-import { RegisterTeacher } from '@/app/ui/teachers/buttons';
+import { RegisterStudent } from '@/app/ui/students/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { fetchStudentsPages } from '@/app/lib/data';
@@ -40,7 +40,7 @@ export default async function Page({
           </div>
           <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
             <Search placeholder="Search students..." />
-            {/* <RegisterTeacher /> Input Register Student button here once components and pages are made */}
+            <RegisterStudent />
           </div>
           <Suspense key={query + currentPage}>
             <Table query={query} currentPage={currentPage} />
