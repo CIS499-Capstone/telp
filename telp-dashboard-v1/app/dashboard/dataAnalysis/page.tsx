@@ -1,6 +1,6 @@
 import { number } from "zod";
 import ChartComponent from "./chart";
-import { fetchIncidentsByTeacher } from "@/app/lib/data_analysis";
+import { fetchIncidentsByTeacher, getIncidents } from "@/app/lib/data_analysis";
 
 export default async function Page() {
   const data = await fetchIncidentsByTeacher();
@@ -15,11 +15,15 @@ export default async function Page() {
     }]
   };
 
+  const incidentsData = await getIncidents();
+  console.log(incidentsData[0]['count']);
+
   return (
-    <div className="mt-0 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8" style={{ width: '50%', height: '50%' }}>
+    <div className="mt-0 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8" style={{ width: '75%', height: '75%' }}>
 
       <ChartComponent data = {chartData} />
-      {/* <h3> {data} </h3> */}
+      <h3>{incidentsData[0]['count']}</h3>
+
     </div>
   );
 }

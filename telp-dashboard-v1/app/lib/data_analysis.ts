@@ -1,4 +1,5 @@
 import { sql } from '@vercel/postgres';
+import { resourceLimits } from 'worker_threads';
 
 export async function fetchIncidentsByTeacher() {
     try {
@@ -12,6 +13,7 @@ export async function fetchIncidentsByTeacher() {
         GROUP BY u.name;
         
         `;
+        console.log("query executed");
         const result = await query;
         
        
@@ -27,4 +29,22 @@ export async function fetchIncidentsByTeacher() {
         console.log("error");
         return [[],[]];
     }
+
+}
+
+export async function getIncidents(){
+    try {
+        
+        const query = sql`SELECT COUNT(*) FROM incidents;
+        
+        `;
+        console.log("query executed");
+        const result = await query;
+        
+        return result.rows;
+    } catch {
+        console.log("error");
+        return [[],[]];
+    }
+
 }
