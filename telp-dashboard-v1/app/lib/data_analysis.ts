@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import { resourceLimits } from 'worker_threads';
+
 
 export async function fetchIncidentsByTeacher() {
     try {
@@ -15,36 +15,39 @@ export async function fetchIncidentsByTeacher() {
         `;
         console.log("query executed");
         const result = await query;
-        
-       
-        
-        const names: string [] = result.rows.map(item => item.name);
+
+
+
+        const names: string[] = result.rows.map(item => item.name);
         console.log(result.rows)
         const incidentCounts: number[] = result.rows.map(item => parseInt(item.incident_count));
         // console.log(typeof(names));
-       
-        
-        return [names,incidentCounts];
+
+
+        return [names, incidentCounts];
     } catch {
         console.log("error");
-        return [[],[]];
+        return [[], []];
     }
 
 }
 
-export async function getIncidents(){
+export async function getIncidentSeries() {
     try {
-        
-        const query = sql`SELECT COUNT(*) FROM incidents;
-        
-        `;
-        console.log("query executed");
-        const result = await query;
-        
-        return result.rows;
-    } catch {
-        console.log("error");
-        return [[],[]];
-    }
+        const query = sql`
+        SELECT EXTRACT(HOUR FROM time) AS hour_of_day,
+       COUNT(*) AS incident_count
+FROM incidents
+GROUP BY EXTRACT(HOUR FROM time)
+ORDER BY hour_of_day;
 
+        `;
+        const result = await query;
+        console.log(result.rows);
+        const mappedResults: any[] = result.rows.map((item) => item);
+        return mappedResults;
+    }catch {
+        console.log("error");
+    }
+    
 }

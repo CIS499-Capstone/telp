@@ -1,67 +1,84 @@
-"use client"
-import React, { useEffect, useRef, useState } from 'react';
-import Chart from 'chart.js/auto';
-import { ChartType, Colors } from 'chart.js';
-import { fetchIncidentsByTeacher } from '@/app/lib/data_analysis';
+import { fetchCardData } from "@/app/lib/data";
+import { unstable_noStore as noStore } from 'next/cache';
+import { Card } from "@/app/ui/dashboard/cards";
+import AreaChartPlot from "./AreaChartPlot";
+import { getIncidentSeries, fetchIncidentsByTeacher } from "@/app/lib/data_analysis";
+import ChartComponent from "./PolarAreaChart";
+export default async function Charts(
 
-Chart.register(Colors);
-interface ChartProps {
-    data: {
-      labels: string[];
-      datasets: {
-        label: string;
-        data: number[];
+) {
+  noStore();
+  const {
+    numberOfIncidents,
+    numberOfTeachers,
+    numberOfComments,
+    numberOfPendingComments,
+  } = await fetchCardData();
+  const timeData = await getIncidentSeries();
+  const pieData = await fetchIncidentsByTeacher();
+
+  const chartData =
+  {
+    labels: pieData[0].map(String),
+    datasets: [{
+      label: "Incidents by Teacher",
+      data: pieData[1].map(value => typeof value === 'string' ? parseInt(value) : value),
+
+    }]
+  };
+
+  return (
+    <>
+      <section>
+        <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            <Card
+              title="Total Teachers"
+              value={numberOfTeachers}
+              type="teachers"
+            />
+          }
+          {
+            <Card
+              title="Total Incidents"
+              value={numberOfIncidents}
+              type="incidents"
+            />
+          }
+          {
+            <Card
+              title="Total Comments"
+              value={numberOfComments}
+              type="comments"
+            />
+          }
+          {
+            <Card
+              title="Pending Comments"
+              value={numberOfPendingComments}
+              type="pending"
+            />
+          }
+        </div>
+      </section>
+
+      <section className="flex ">
+        <div className="w-1/2 h-[300px]  rounded" >
+          <AreaChartPlot data={timeData} />
+        </div>
+        <div className=" ">
+          <ChartComponent data={chartData} />
+        </div>
+        
+
+      </section>
+
+      {/* <section className="flex "> */}
        
-      }[];
-    };
-  }
 
-const ChartComponent: React.FC <ChartProps> = ({data}) => {
-  const chartRef = useRef<HTMLCanvasElement | null>(null);
-  const chartInstanceRef = useRef<Chart | null>(null);
-
-  useEffect(() => {
-    if (!chartRef.current) return;
-
-    const ctx = chartRef.current.getContext('2d');
-    if (!ctx) return;
-
-    // Destroy any existing chart instance
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy();
-    }
-
-    // Create a new chart instance
-    
-    
-
-
-    chartInstanceRef.current = new Chart(ctx, {
-      type: 'polarArea' as ChartType,
-      data: data,
-      options:{
-        plugins:{
-            colors:{
-                enabled: true
-            },
-            title: {
-                display: true,
-                text: 'Incidents by Teacher'
-            }
-        }
-      },
-      
-    });
-
-    // Cleanup function to destroy the chart instance on unmount
-    return () => {
-      if (chartInstanceRef.current) {
-        chartInstanceRef.current.destroy();
-      }
-    };
-  }, []);
-
-  return <canvas ref={chartRef}></canvas>;
+      {/* </section> */}
+    </>
+  );
 };
 
-export default ChartComponent;
+
