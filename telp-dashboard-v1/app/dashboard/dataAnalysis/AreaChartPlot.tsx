@@ -49,7 +49,7 @@ const AreaChart: React.FC<ChartProps> = ({ data }) => {
                     },
                     title: {
                         display: true,
-                        text: 'Incidents by Teacher'
+                        text: 'Incidents by Time'
                     }
                 },
             
@@ -75,15 +75,14 @@ const AreaChart: React.FC<ChartProps> = ({ data }) => {
                             title: {
                                 display: true,
                                 text: 'Incident Count',
-                                // color: '#191',
-                                // font: {
-                                //     family: 'Times',
-                                //     size: 20,
-                                //     style: 'normal',
-                                //     lineHeight: 1.2
-                                // },
-                                // padding: { top: 30, left: 0, right: 0, bottom: 0 }
+                                
+                            },
+                            ticks:{
+                                callback(tickValue, index, ticks) {
+                                    return parseInt(tickValue);
+                                },
                             }
+                           
                         }
                     }
                 }
@@ -96,7 +95,7 @@ const AreaChart: React.FC<ChartProps> = ({ data }) => {
                 chartInstanceRef.current.destroy();
             }
         };
-    }, []);
+    });
 
     return <canvas ref={chartRef}></canvas>;
 };

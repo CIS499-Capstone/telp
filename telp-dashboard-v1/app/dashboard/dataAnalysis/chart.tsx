@@ -19,13 +19,14 @@ export default async function Charts(
     labels: timeData[0].map(String),
     datasets: [{
       label: "Incident Counts over Time",
-      data: timeData[1].map(value => typeof value === 'string' ? parseInt(value) : value),
+      data: timeData[1].map(value => typeof value === 'string'  ? parseInt(value) : value),
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1,
       xAxisID: "Incident"
     }]
   }
+  
   const pieData = await fetchIncidentsByTeacher();
 
   const chartData =
@@ -74,14 +75,15 @@ export default async function Charts(
       </section>
 
       <section className="flex h-auto">
-    <div className="w-1/2" style={{ height: '6000px' }}>
-      {/* Adjust height as needed */}
-      <AreaChart data={lineData} />
-    </div>
-    <div className="w-1/2">
-      <ChartComponent data={chartData} />
-    </div>
-  </section>
+        <div className="w-1/2  rounded" >
+          <AreaChart data={lineData} />
+        </div>
+        <div className=" w-1/2">
+          <ChartComponent data={chartData} />
+        </div>
+        
+
+      </section>
 
       {/* <section className="flex "> */}
        

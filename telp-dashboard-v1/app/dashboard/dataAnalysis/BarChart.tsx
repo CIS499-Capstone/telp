@@ -11,12 +11,12 @@ interface ChartProps {
       datasets: {
         label: string;
         data: number[];
-       
+        borderWidth: 1
       }[];
     };
   }
 
-const ChartComponent: React.FC <ChartProps> = ({data}) => {
+const BarChart: React.FC <ChartProps> = ({data}) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
@@ -37,7 +37,7 @@ const ChartComponent: React.FC <ChartProps> = ({data}) => {
 
 
     chartInstanceRef.current = new Chart(ctx, {
-      type: 'polarArea' as ChartType,
+      type: 'bar' as ChartType,
       data: data,
       options:{
         plugins:{
@@ -46,7 +46,7 @@ const ChartComponent: React.FC <ChartProps> = ({data}) => {
             },
             title: {
                 display: true,
-                text: 'Incidents by Teacher'
+                text: 'Incidents by Student'
             }
         }
       },
@@ -64,4 +64,4 @@ const ChartComponent: React.FC <ChartProps> = ({data}) => {
   return <canvas ref={chartRef}></canvas>;
 };
 
-export default ChartComponent;
+export default BarChart;
