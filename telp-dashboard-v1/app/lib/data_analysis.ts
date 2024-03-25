@@ -44,7 +44,7 @@ ORDER BY hour_of_day;
         `;
         const result = await query;
         // console.log(result.rows);
-        const times: string[] = result.rows.map(item => item.hour_of_day);
+        const times: string[] = result.rows.map(item => item.hour_of_day + ":00");
         // console.log(times);
         const incidentCounts: number[] = result.rows.map(item => parseInt(item.incident_count));
         console.log(incidentCounts);

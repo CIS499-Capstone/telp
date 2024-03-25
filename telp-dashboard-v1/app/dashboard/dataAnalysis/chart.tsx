@@ -22,7 +22,8 @@ export default async function Charts(
       data: timeData[1].map(value => typeof value === 'string' ? parseInt(value) : value),
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
+      tension: 0.1,
+      xAxisID: "Incident"
     }]
   }
   const pieData = await fetchIncidentsByTeacher();
@@ -38,7 +39,7 @@ export default async function Charts(
   };
 
   return (
-    <>
+    <div className="h-auto">
       <section>
         <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {
@@ -72,22 +73,21 @@ export default async function Charts(
         </div>
       </section>
 
-      <section className="flex ">
-        <div className="w-1/2 h-[300px]  rounded" >
-          <AreaChart data={lineData} />
-        </div>
-        <div className=" ">
-          <ChartComponent data={chartData} />
-        </div>
-        
-
-      </section>
+      <section className="flex h-auto">
+    <div className="w-1/2" style={{ height: '6000px' }}>
+      {/* Adjust height as needed */}
+      <AreaChart data={lineData} />
+    </div>
+    <div className="w-1/2">
+      <ChartComponent data={chartData} />
+    </div>
+  </section>
 
       {/* <section className="flex "> */}
        
 
       {/* </section> */}
-    </>
+    </div>
   );
 };
 
