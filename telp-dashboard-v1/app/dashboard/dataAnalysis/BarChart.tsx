@@ -11,7 +11,7 @@ interface ChartProps {
       datasets: {
         label: string;
         data: number[];
-        borderWidth: 1
+        borderWidth: number
       }[];
     };
   }
@@ -46,7 +46,7 @@ const BarChart: React.FC <ChartProps> = ({data}) => {
             },
             title: {
                 display: true,
-                text: 'Incidents by Student'
+                text: '# of Incidents'
             }
         }
       },

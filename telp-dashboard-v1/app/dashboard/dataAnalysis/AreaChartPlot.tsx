@@ -52,40 +52,40 @@ const AreaChart: React.FC<ChartProps> = ({ data }) => {
                         text: 'Incidents by Time'
                     }
                 },
-            
-                    responsive: true,
-                    scales: {
-                        x: {
-                            display: false,
-                            title: {
-                                display: true,
-                                text: 'Time',
-                             
-                            }
-                        },
-                        y: {
+
+                responsive: true,
+                scales: {
+                    x: {
+                        display: false,
+                        title: {
                             display: true,
-                            title: {
-                                display: true,
-                                text: 'Incident Count',
-                                
-                            },
-                            ticks:{
-                                callback(tickValue, index, ticks) {
-                                   if(typeof tickValue === 'string'){
-                                    return parseInt(tickValue);
-                                   }else{
-                                    return tickValue.toFixed(0);
-                                   }
-                                    
-                                },
-                            }
-                           
+                            text: 'Time',
+
                         }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Incident Count',
+
+                        },
+                        ticks: {
+                            callback(tickValue, index, ticks) {
+                                if (typeof tickValue === 'string') {
+                                    return parseInt(tickValue);
+                                } else {
+                                    return tickValue.toFixed(0);
+                                }
+
+                            },
+                        }
+
                     }
                 }
+            }
 
-            });
+        });
 
         // Cleanup function to destroy the chart instance on unmount
         return () => {

@@ -2,8 +2,9 @@ import { fetchCardData } from "@/app/lib/data";
 import { unstable_noStore as noStore } from 'next/cache';
 import { Card } from "@/app/ui/dashboard/cards";
 import AreaChart from "./AreaChartPlot";
-import { getIncidentSeries, fetchIncidentsByTeacher } from "@/app/lib/data_analysis";
+import { getIncidentSeries, fetchIncidentsByTeacher, getIncidentsByStudent } from "@/app/lib/data_analysis";
 import ChartComponent from "./PolarAreaChart";
+import BarChart from "./BarChart";
 export default async function Charts(
 
 ) {
@@ -38,58 +39,44 @@ export default async function Charts(
 
     }]
   };
-
+  const studentBarData = await getIncidentsByStudent();
+  const barData =
+  {
+    labels: studentBarData[0].map(String),
+    datasets: [{
+      label: "Incidents by Student",
+      data: studentBarData[1].map(value => typeof value === 'string' ? parseInt(value) : value),
+      borderWidth: 1
+    }]
+  }
   return (
-    <div className="h-auto">
-      <section>
-        <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {
-            <Card
-              title="Total Teachers"
-              value={numberOfTeachers}
-              type="teachers"
-            />
-          }
-          {
-            <Card
-              title="Total Incidents"
-              value={numberOfIncidents}
-              type="incidents"
-            />
-          }
-          {
-            <Card
-              title="Total Comments"
-              value={numberOfComments}
-              type="comments"
-            />
-          }
-          {
-            <Card
-              title="Pending Comments"
-              value={numberOfPendingComments}
-              type="pending"
-            />
-          }
-        </div>
-      </section>
+    <div className="p-4">
+    {/* Section for cards */}
+    <section className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <Card title="Total Teachers" value={numberOfTeachers} type="teachers" />
+      <Card title="Total Incidents" value={numberOfIncidents} type="incidents" />
+      <Card title="Total Comments" value={numberOfComments} type="comments" />
+      <Card title="Pending Comments" value={numberOfPendingComments} type="pending" />
+    </section>
 
-      <section className="flex h-auto">
-        <div className="w-1/2  rounded" >
-          <AreaChart data={lineData} />
-        </div>
-        <div className=" w-1/2">
-          <ChartComponent data={chartData} />
-        </div>
-        
+    {/* Section for charts */}
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      {/* Pie chart */}
+      <div className="rounded-lg border bg-white p-4 lg:col-span-2">
+        <ChartComponent data={chartData} />
+      </div>
 
-      </section>
+      {/* Area chart */}
+      <div className="rounded-lg border bg-white p-4 lg:col-span-2">
+        <AreaChart data={lineData} />
+      </div>
 
-      {/* <section className="flex "> */}
-       
-
-      {/* </section> */}
+      {/* Bar chart */}
+      <div className="rounded-lg border bg-white p-4 lg:col-span-4">
+        <BarChart data={barData} />
+      </div>
     </div>
+  </div>
   );
 };
 

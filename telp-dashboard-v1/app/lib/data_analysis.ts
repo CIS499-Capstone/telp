@@ -55,3 +55,26 @@ ORDER BY hour_of_day;
     }
     
 }
+export async function getIncidentsByStudent() {
+    try {
+        const query = sql`
+        SELECT s.name, COUNT(*) AS incident_count
+FROM incidents i
+JOIN students s ON i.student_id = s.student_id
+GROUP BY s.student_id;
+
+
+        `;
+        const result = await query;
+        // console.log(result.rows);
+        const names: string[] = result.rows.map(item => item.name);
+        // console.log(times);
+        const incidentCounts: number[] = result.rows.map(item => parseInt(item.incident_count));
+        // console.log(incidentCounts);
+        return [names,incidentCounts];
+    }catch {
+        console.log("error");
+        return [[],[]];
+    }
+    
+}
