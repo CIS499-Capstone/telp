@@ -60,14 +60,7 @@ const AreaChart: React.FC<ChartProps> = ({ data }) => {
                             title: {
                                 display: true,
                                 text: 'Time',
-                                // color: '#911',
-                                // font: {
-                                //     family: 'Comic Sans MS',
-                                //     size: 20,
-                                //     weight: 'bold',
-                                //     lineHeight: 1.2,
-                                // },
-                                // padding: { top: 20, left: 0, right: 0, bottom: 0 }
+                             
                             }
                         },
                         y: {
@@ -79,7 +72,12 @@ const AreaChart: React.FC<ChartProps> = ({ data }) => {
                             },
                             ticks:{
                                 callback(tickValue, index, ticks) {
+                                   if(typeof tickValue === 'string'){
                                     return parseInt(tickValue);
+                                   }else{
+                                    return tickValue.toFixed(0);
+                                   }
+                                    
                                 },
                             }
                            
