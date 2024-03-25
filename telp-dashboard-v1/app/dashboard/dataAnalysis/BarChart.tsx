@@ -48,6 +48,14 @@ const BarChart: React.FC <ChartProps> = ({data}) => {
                 display: true,
                 text: '# of Incidents'
             }
+        },
+        scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                stepSize : 1
+              }
+            }
         }
       },
       
