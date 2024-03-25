@@ -118,40 +118,74 @@ export default async function EditScheduleForm({
                       {schedule1.day || "Monday"}
                     </td>
                     <td className="whitespace-nowrap px-3 py-3">
-                      <input
+                    <select
                         defaultValue={schedule1['7:30'] || ""}
                         id="m730"
                         name="m730"
-                        type="number"
-                        className="peer block w-full rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
-                      />
+                        className="peer block rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
+                      >
+                        <option value="1">Classroom</option>
+                        <option value="2">Music</option>
+                        <option value="3">PE</option>
+                        <option value="4">Library</option>
+                        <option value="5">Computer Lab</option>
+                        <option value="6">Recess</option>
+                        <option value="7">Lunch</option>
+                        <option value="8">Art</option>
+                        </select>
                     </td>
                     <td className="whitespace-nowrap px-3 py-3">
-                      <input
+                      
+                    
+                      <select
                         defaultValue={schedule1['8:00'] || ""}
                         id="m800"
                         name="m800"
-                        type="number"
-                        className="peer block w-full rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
-                      />
+                        className="peer block rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
+                      >
+                        <option value="1">Classroom</option>
+                        <option value="2">Music</option>
+                        <option value="3">PE</option>
+                        <option value="4">Library</option>
+                        <option value="5">Computer Lab</option>
+                        <option value="6">Recess</option>
+                        <option value="7">Lunch</option>
+                        <option value="8">Art</option>
+                        </select>
                     </td>
                     <td className="whitespace-nowrap px-3 py-3">
-                      <input
+                    <select
                         defaultValue={schedule1['8:30'] || ""}
                         id="m830"
                         name="m830"
-                        type="number"
-                        className="peer block w-full rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
-                      />
+                        className="peer block rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
+                      >
+                        <option value="1">Classroom</option>
+                        <option value="2">Music</option>
+                        <option value="3">PE</option>
+                        <option value="4">Library</option>
+                        <option value="5">Computer Lab</option>
+                        <option value="6">Recess</option>
+                        <option value="7">Lunch</option>
+                        <option value="8">Art</option>
+                        </select>
                     </td>
                     <td className="whitespace-nowrap px-3 py-3">
-                      <input
+                    <select
                         defaultValue={schedule1['9:00'] || ""}
                         id="m900"
                         name="m900"
-                        type="number"
-                        className="peer block w-full rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
-                      />
+                        className="peer block rounded-md border border-gray-200 text-sm outline-2 placeholder:text-gray-500"
+                      >
+                        <option value="1">Classroom</option>
+                        <option value="2">Music</option>
+                        <option value="3">PE</option>
+                        <option value="4">Library</option>
+                        <option value="5">Computer Lab</option>
+                        <option value="6">Recess</option>
+                        <option value="7">Lunch</option>
+                        <option value="8">Art</option>
+                        </select>
                     </td>
                     <td className="whitespace-nowrap px-3 py-3">
                       <input
