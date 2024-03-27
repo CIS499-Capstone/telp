@@ -100,49 +100,154 @@ export default async function ScheduleTable({
                     {schedule.day}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['7:30']}
+                    {schedule['7:30'] === 1 ? 'Classroom' :
+                     schedule['7:30'] === 2 ? 'Music' :
+                     schedule['7:30'] === 3 ? 'PE' :
+                     schedule['7:30'] === 4 ? 'Library' :
+                     schedule['7:30'] === 5 ? 'Computer Lab' :
+                     schedule['7:30'] === 6 ? 'Recess' :
+                     schedule['7:30'] === 7 ? 'Lunch' :
+                     schedule['7:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['8:00']}
+                    {schedule['8:00'] === 1 ? 'Classroom' :
+                     schedule['8:00'] === 2 ? 'Music' :
+                     schedule['8:00'] === 3 ? 'PE' :
+                     schedule['8:00'] === 4 ? 'Library' :
+                     schedule['8:00'] === 5 ? 'Computer Lab' :
+                     schedule['8:00'] === 6 ? 'Recess' :
+                     schedule['8:00'] === 7 ? 'Lunch' :
+                     schedule['8:00'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['8:30']}
+                    {schedule['8:30'] === 1 ? 'Classroom' :
+                     schedule['8:30'] === 2 ? 'Music' :
+                     schedule['8:30'] === 3 ? 'PE' :
+                     schedule['8:30'] === 4 ? 'Library' :
+                     schedule['8:30'] === 5 ? 'Computer Lab' :
+                     schedule['8:30'] === 6 ? 'Recess' :
+                     schedule['8:30'] === 7 ? 'Lunch' :
+                     schedule['8:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['9:00']}
+                    {schedule['9:00'] === 1 ? 'Classroom' :
+                     schedule['9:00'] === 2 ? 'Music' :
+                     schedule['9:00'] === 3 ? 'PE' :
+                     schedule['9:00'] === 4 ? 'Library' :
+                     schedule['9:00'] === 5 ? 'Computer Lab' :
+                     schedule['9:00'] === 6 ? 'Recess' :
+                     schedule['9:00'] === 7 ? 'Lunch' :
+                     schedule['9:00'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['9:30']}
+                    {schedule['9:30'] === 1 ? 'Classroom' :
+                     schedule['9:30'] === 2 ? 'Music' :
+                     schedule['9:30'] === 3 ? 'PE' :
+                     schedule['9:30'] === 4 ? 'Library' :
+                     schedule['9:30'] === 5 ? 'Computer Lab' :
+                     schedule['9:30'] === 6 ? 'Recess' :
+                     schedule['9:30'] === 7 ? 'Lunch' :
+                     schedule['9:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['10:00']}
+                    {schedule['10:00'] === 1 ? 'Classroom' :
+                     schedule['10:00'] === 2 ? 'Music' :
+                     schedule['10:00'] === 3 ? 'PE' :
+                     schedule['10:00'] === 4 ? 'Library' :
+                     schedule['10:00'] === 5 ? 'Computer Lab' :
+                     schedule['10:00'] === 6 ? 'Recess' :
+                     schedule['10:00'] === 7 ? 'Lunch' :
+                     schedule['10:00'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['10:30']}
+                    {schedule['10:30'] === 1 ? 'Classroom' :
+                     schedule['10:30'] === 2 ? 'Music' :
+                     schedule['10:30'] === 3 ? 'PE' :
+                     schedule['10:30'] === 4 ? 'Library' :
+                     schedule['10:30'] === 5 ? 'Computer Lab' :
+                     schedule['10:30'] === 6 ? 'Recess' :
+                     schedule['10:30'] === 7 ? 'Lunch' :
+                     schedule['10:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['11:00']}
+                    {schedule['11:00'] === 1 ? 'Classroom' :
+                     schedule['11:00'] === 2 ? 'Music' :
+                     schedule['11:00'] === 3 ? 'PE' :
+                     schedule['11:00'] === 4 ? 'Library' :
+                     schedule['11:00'] === 5 ? 'Computer Lab' :
+                     schedule['11:00'] === 6 ? 'Recess' :
+                     schedule['11:00'] === 7 ? 'Lunch' :
+                     schedule['11:00'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['11:30']}
+                    {schedule['11:30'] === 1 ? 'Classroom' :
+                     schedule['11:30'] === 2 ? 'Music' :
+                     schedule['11:30'] === 3 ? 'PE' :
+                     schedule['11:30'] === 4 ? 'Library' :
+                     schedule['11:30'] === 5 ? 'Computer Lab' :
+                     schedule['11:30'] === 6 ? 'Recess' :
+                     schedule['11:30'] === 7 ? 'Lunch' :
+                     schedule['11:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['12:00']}
+                    {schedule['12:00'] === 1 ? 'Classroom' :
+                     schedule['12:00'] === 2 ? 'Music' :
+                     schedule['12:00'] === 3 ? 'PE' :
+                     schedule['12:00'] === 4 ? 'Library' :
+                     schedule['12:00'] === 5 ? 'Computer Lab' :
+                     schedule['12:00'] === 6 ? 'Recess' :
+                     schedule['12:00'] === 7 ? 'Lunch' :
+                     schedule['12:00'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['12:30']}
+                    {schedule['12:30'] === 1 ? 'Classroom' :
+                     schedule['12:30'] === 2 ? 'Music' :
+                     schedule['12:30'] === 3 ? 'PE' :
+                     schedule['12:30'] === 4 ? 'Library' :
+                     schedule['12:30'] === 5 ? 'Computer Lab' :
+                     schedule['12:30'] === 6 ? 'Recess' :
+                     schedule['12:30'] === 7 ? 'Lunch' :
+                     schedule['12:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['1:00']}
+                    {schedule['1:00'] === 1 ? 'Classroom' :
+                     schedule['1:00'] === 2 ? 'Music' :
+                     schedule['1:00'] === 3 ? 'PE' :
+                     schedule['1:00'] === 4 ? 'Library' :
+                     schedule['1:00'] === 5 ? 'Computer Lab' :
+                     schedule['1:00'] === 6 ? 'Recess' :
+                     schedule['1:00'] === 7 ? 'Lunch' :
+                     schedule['1:00'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['1:30']}
+                    {schedule['1:30'] === 1 ? 'Classroom' :
+                     schedule['1:30'] === 2 ? 'Music' :
+                     schedule['1:30'] === 3 ? 'PE' :
+                     schedule['1:30'] === 4 ? 'Library' :
+                     schedule['1:30'] === 5 ? 'Computer Lab' :
+                     schedule['1:30'] === 6 ? 'Recess' :
+                     schedule['1:30'] === 7 ? 'Lunch' :
+                     schedule['1:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['2:00']}
+                    {schedule['2:00'] === 1 ? 'Classroom' :
+                     schedule['2:00'] === 2 ? 'Music' :
+                     schedule['2:00'] === 3 ? 'PE' :
+                     schedule['2:00'] === 4 ? 'Library' :
+                     schedule['2:00'] === 5 ? 'Computer Lab' :
+                     schedule['2:00'] === 6 ? 'Recess' :
+                     schedule['2:00'] === 7 ? 'Lunch' :
+                     schedule['2:00'] === 8 ? 'Art' : 'Not set'}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {schedule['2:30']}
+                    {schedule['2:30'] === 1 ? 'Classroom' :
+                     schedule['2:30'] === 2 ? 'Music' :
+                     schedule['2:30'] === 3 ? 'PE' :
+                     schedule['2:30'] === 4 ? 'Library' :
+                     schedule['2:30'] === 5 ? 'Computer Lab' :
+                     schedule['2:30'] === 6 ? 'Recess' :
+                     schedule['2:30'] === 7 ? 'Lunch' :
+                     schedule['2:30'] === 8 ? 'Art' : 'Not set'}
                   </td>
                 </tr>
               ))}
