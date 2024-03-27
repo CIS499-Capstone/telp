@@ -25,7 +25,7 @@ export async function fetchCardData() {
     const numberOfIncidents = Number(data[1].rows[0].count ?? '0');
     const numberOfComments = Number(data[2].rows[0].count ?? '0');
     const numberOfPendingComments = numberOfIncidents - numberOfComments; 
-
+    // console.log(numberOfComments);
     return {
       numberOfIncidents,
       numberOfTeachers,
