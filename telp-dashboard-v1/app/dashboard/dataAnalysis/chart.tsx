@@ -5,6 +5,7 @@ import AreaChart from "./AreaChartPlot";
 import { getIncidentSeries, fetchIncidentsByTeacher, getIncidentsByStudent } from "@/app/lib/data_analysis";
 import ChartComponent from "./PolarAreaChart";
 import BarChart from "./BarChart";
+import { Button } from "@/app/ui/button";
 export default async function Charts(
 
 ) {
@@ -50,10 +51,11 @@ export default async function Charts(
     }]
   }
   const students = await fetchStudents();
+  const  getStudentLineChart= ()=>{console.log('hi')};
   return (
     <div className="p-4 w-full">
       {/* Section for cards */}
-      <section className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="mb-6 grid grid-cols-1 lg:grid-cols-4 gap-4">
         <Card title="Total Teachers" value={numberOfTeachers} type="teachers" />
         <Card title="Total Incidents" value={numberOfIncidents} type="incidents" />
         <Card title="Total Comments" value={numberOfComments} type="comments" />
@@ -77,22 +79,22 @@ export default async function Charts(
           <BarChart data={barData} />
         </div>
       </div>
+        {/* <div className="mt-4 flex" >
+          <select
+            id="student_id"
+            name="student_id"
+            className="block w-3/4 rounded-md border border-gray-200 px-3 py-2 text-sm placeholder-gray-500 outline-none"
+          >
+            <option disabled value="">Select Option</option>
+            {students.map((student) => (
+              <option key={student.student_id} value={student.student_id}>
+                {`${student.student_id} - ${student.name}`}
+              </option>
+            ))}
+          </select>
+        </div> */}
 
-      {/* Dropdown */}
-      <div className="mt-4">
-        <select
-          id="student_id"
-          name="student_id"
-          className="block w-full rounded-md border border-gray-200 px-3 py-2 text-sm placeholder-gray-500 outline-none"
-        >
-           <option disabled selected>Select Option</option>
-          {students.map((student) => (
-            <option key={student.student_id} value={student.student_id}>
-              {`${student.student_id} - ${student.name}`}
-            </option>
-          ))}
-        </select>
-      </div>
+
     </div>
 
   );

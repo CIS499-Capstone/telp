@@ -78,3 +78,7 @@ GROUP BY s.student_id;
     }
     
 }
+export async function getIncidentForStudent(id:string){
+    console.log(id);
+    return id;
+}
