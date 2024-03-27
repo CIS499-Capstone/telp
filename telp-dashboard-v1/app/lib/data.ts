@@ -293,7 +293,8 @@ export async function fetchTeachersPages(query: string) {
     FROM users
     JOIN devices ON users.id = devices.userid
     WHERE
-      users.role = 'teacher'
+      users.role = 'teacher' AND
+      (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
   `;
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
     console.log("Pages:", totalPages);
@@ -311,7 +312,8 @@ export async function fetchAdminsPages(query: string) {
     SELECT *
     FROM users
     WHERE
-      users.role = 'admin'
+      users.role = 'admin' AND
+      (users.name ILIKE ${`%${query}%`} OR users.email ILIKE ${`%${query}%`})
   `;
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
 
@@ -333,6 +335,9 @@ export async function fetchIncidentsPages(query: string) {
       incidents
     LEFT JOIN
       students ON incidents.student_id = students.student_id
+    WHERE
+      (name ILIKE ${`%${query}%`} OR comment ILIKE ${`%${query}%`}) OR
+      (name IS NULL OR comment IS NULL)
   `;
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
     return totalPages;
@@ -348,6 +353,7 @@ export async function fetchStudentsPages(query: string) {
     const count = await sql`
     SELECT *
     FROM students
+    WHERE students.name ILIKE ${`%${query}%`}
   `;
     const totalPages = Math.ceil(Number(count.rowCount) / ITEMS_PER_PAGE);
     console.log("Rows:", count.rowCount);
