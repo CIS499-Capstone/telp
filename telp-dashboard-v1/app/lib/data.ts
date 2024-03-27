@@ -229,7 +229,9 @@ export async function fetchFilteredIncidents(
       LEFT JOIN
         students ON incidents.student_id = students.student_id
       WHERE
-        (students.name ILIKE ${`%${query}%`} OR incidents.comment ILIKE ${`%${query}%`})
+        (name ILIKE ${`%${query}%`} OR comment ILIKE ${`%${query}%`}) OR
+        (name IS NULL OR comment IS NULL)
+      ORDER BY time DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
@@ -262,6 +264,7 @@ export async function fetchFilteredStudents(
       SELECT *
       FROM students
       WHERE students.name ILIKE ${`%${query}%`}
+      ORDER BY student_id ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
